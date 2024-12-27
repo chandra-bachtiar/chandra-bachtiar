@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Chandra Bachtiar Portfolio</title>
+        <style>
+            body {
+                background-color: #000;
+                color: #0f0;
+                font-family: monospace;
+                margin: 0;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+            }
+
+            .ascii-art {
+                text-align: center;
+                white-space: pre-wrap;
+                margin-bottom: 20px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                font-size: min(2vw, 2vh); /* Adjust this line */
+            }
+
+            @media (max-width: 600px) {
+                .ascii-art {
+                    flex-direction: column;
+                }
+                .ascii-art pre {
+                    display: block;
+                }
+            }
+
+            @media (min-width: 601px) {
+                .ascii-art {
+                    flex-direction: row;
+                }
+                .ascii-art pre {
+                    display: inline-block;
+                    margin-right: 20px; /* Add this line */
+                }
+                .ascii-art pre:last-child {
+                    margin-right: 0; /* Add this line */
+                }
+            }
+
+            .description {
+                text-align: center;
+                margin: 10px 0;
+                font-size: 1rem;
+            }
+
+            .links {
+                display: flex;
+                gap: 15px;
+                margin-top: 10px;
+            }
+
+            .links a {
+                color: #0f0;
+                text-decoration: none;
+                font-size: 1rem;
+                border: 1px solid #0f0;
+                padding: 5px 10px;
+                border-radius: 5px;
+                transition: all 0.3s;
+            }
+
+            .links a:hover {
+                background-color: #0f0;
+                color: #000;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="ascii-art">
+            <pre>
+ ██████╗██╗  ██╗ █████╗ ███╗   ██╗██████╗ ██████╗  █████╗ 
+██╔════╝██║  ██║██╔══██╗████╗  ██║██╔══██╗██╔══██╗██╔══██╗
+██║     ███████║███████║██╔██╗ ██║██║  ██║██████╔╝███████║
+██║     ██╔══██║██╔══██║██║╚██╗██║██║  ██║██╔══██╗██╔══██║
+╚██████╗██║  ██║██║  ██║██║ ╚████║██████╔╝██║  ██║██║  ██║
+ ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝ 
+    </pre>
+            <pre>
+██████╗  █████╗  ██████╗██╗  ██╗████████╗██╗ █████╗ ██████╗ 
+██╔══██╗██╔══██╗██╔════╝██║  ██║╚══██╔══╝██║██╔══██╗██╔══██╗
+██████╔╝███████║██║     ███████║   ██║   ██║███████║██████╔╝
+██╔══██╗██╔══██║██║     ██╔══██║   ██║   ██║██╔══██║██╔══██╗
+██████╔╝██║  ██║╚██████╗██║  ██║   ██║   ██║██║  ██║██║  ██║
+╚═════╝ ╚═╝  ╚═╝╚═════╝╚═╝  ╚═╝   ╚═╝   ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝
+</pre>
+        </div>
+        <div class="description">
+            <p>
+                Hi, I'm Chandra Bachtiar, a passionate web developer and
+                technology enthusiast.
+            </p>
+            <p>Let's connect and build something amazing together!</p>
+        </div>
+        <div class="links">
+            <a href="https://github.com/chandra-bachtiar" target="_blank"
+                >GitHub</a
+            >
+            <a href="https://linkedin.com/in/chandra-bachtiar" target="_blank"
+                >LinkedIn</a
+            >
+            <a href="https://x.com/Chaaannd" target="_blank">X Account</a>
+            <a href="mailto:mail@chand.my.id" target="_blank">Email</a> <!-- Add this line -->
+        </div>
+    </body>
+</html>
