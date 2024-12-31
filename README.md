@@ -3,9 +3,9 @@
 
 <p align="left"> <img src="https://komarev.com/ghpvc/?username=chandra-bachtiar&label=Profile%20views&color=0e75b6&style=flat" alt="chandra-bachtiar" /> </p>
 
-- 🔭 I’m currently working on **.NET or PHP Project**
+- 🔭 I’m currently working on **Javascript or PHP Project**
 
-- 🌱 I’m currently learning **Microservices and web-dev infrastructure**
+- 🌱 I’m currently learning **Microservices and Concurency**
 
 - 👯 I’m looking to collaborate on **Any Web Development Project**
 
