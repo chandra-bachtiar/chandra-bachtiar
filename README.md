@@ -5,7 +5,7 @@
 
 - 🔭 I’m currently working on **Javascript or PHP Project**
 
-- 🌱 I’m currently learning **Microservices and Concurency**
+- 🌱 I’m currently learning **Microservices, Concurency, and Artificial Intelegent**
 
 - 👯 I’m looking to collaborate on **Any Web Development Project**
 
