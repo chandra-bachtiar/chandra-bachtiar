@@ -12,3 +12,9 @@
 - 💬 Ask me about **PHP or Javascript**
 
 - ⚡ Fun fact **A Profesional Code Stealling🤣**
+
+<p align="center">
+  <a href="https://github.com/chandra-bachtiar">
+    <img alt="Chandra streak" src="https://github-readme-streak-stats-eight.vercel.app/?user=chandra-bachtiar&theme=monokai-metallian&hide_border=true&short_numbers=true"/>
+  </a>
+</p>
