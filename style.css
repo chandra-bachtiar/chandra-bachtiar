@@ -1,0 +1,193 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Fira Code', monospace;
+}
+
+:root {
+    --bg-color: #1a1b26;
+    --text-color: #c0caf5;
+    --accent-color: #7dcfff;
+    --secondary-color: #bb9af7;
+    --command-color: #9ece6a;
+    --error-color: #f7768e;
+    --success-color: #73daca;
+    --header-color: #24283b;
+}
+
+body {
+    background-color: #111;
+    color: var(--text-color);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.terminal-container {
+    width: 90%;
+    max-width: 900px;
+    height: 80vh;
+    background-color: var(--bg-color);
+    border-radius: 8px;
+    overflow: hidden; /* Menghilangkan scroll secara horizontal dan vertikal */
+    overflow-y: hidden; /* Secara eksplisit menghilangkan scroll vertikal */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.terminal-header {
+    background-color: var(--header-color);
+    height: 40px;
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+}
+
+.terminal-buttons {
+    display: flex;
+    align-items: center;
+}
+
+.terminal-button {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+
+.terminal-button.close {
+    background-color: #f7768e;
+}
+
+.terminal-button.minimize {
+    background-color: #e0af68;
+}
+
+.terminal-button.maximize {
+    background-color: #9ece6a;
+}
+
+.terminal-title {
+    margin-left: 20px;
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+.terminal-body {
+    height: calc(100% - 40px);
+    padding: 15px;
+    overflow-y: auto; /* Mengizinkan scroll vertikal */
+}
+
+.terminal-welcome {
+    margin-bottom: 20px;
+}
+
+.ascii-art {
+    color: var(--accent-color);
+    font-size: 14px;
+    line-height: 1.2;
+    margin-bottom: 10px;
+    overflow: hidden; /* Mencegah scrolling */
+    white-space: pre; /* Mempertahankan whitespace dan line breaks */
+    max-width: 100%; /* Batasi lebar maksimum */
+    display: block; /* Memastikan elemen block */
+}
+
+.terminal-output {
+    margin-bottom: 15px;
+}
+
+.terminal-input-line {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.terminal-prompt {
+    color: var(--accent-color);
+    margin-right: 10px;
+    white-space: nowrap;
+}
+
+.terminal-input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--text-color);
+    font-size: 16px;
+    flex: 1;
+}
+
+.command {
+    color: var(--command-color);
+    font-weight: 500;
+}
+
+.output-section {
+    margin: 10px 0;
+    padding-left: 15px;
+}
+
+.output-section h2 {
+    color: var(--secondary-color);
+    margin-bottom: 10px;
+}
+
+.output-section p {
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
+.project-item {
+    margin-bottom: 15px;
+}
+
+.project-title {
+    color: var(--command-color);
+    font-weight: 500;
+}
+
+.project-tech {
+    color: var(--secondary-color);
+    font-style: italic;
+    font-size: 14px;
+}
+
+.error-message {
+    color: var(--error-color);
+}
+
+.skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.skill-item {
+    background-color: rgba(125, 207, 255, 0.1);
+    padding: 4px 10px;
+    border-radius: 4px;
+    color: var(--accent-color);
+}
+
+@media (max-width: 768px) {
+    .terminal-container {
+        width: 95%;
+        height: 85vh;
+    }
+    
+    .ascii-art {
+        font-size: 8px;
+    }
+    
+    .terminal-prompt {
+        font-size: 14px;
+    }
+    
+    .terminal-input {
+        font-size: 14px;
+    }
+}
