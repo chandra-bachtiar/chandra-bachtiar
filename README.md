@@ -12,7 +12,7 @@
 - 🔭 Currently building **web apps, automation scripts, and sometimes chaos**
 - 🌱 Learning **Microservices, Concurrency, Automation, and mild AI stuff (not making Skynet… yet)**
 - 👯 Open for collaboration on **anything fun or mildly dangerous (preferably both)**
-- ⚡ Fun fact: **I don’t write bugs — I create unexpected features**
+- ⚡ Fun fact: **There is no cloud. It’s just someone else’s computer.**
 
 ---
 
