@@ -1,41 +1,233 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>/usr/chandra-bachtiar</title>
+    <title>Senior Fullstack Developer Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap">
 </head>
+
 <body>
-    <div class="terminal-container">
-        <div class="terminal-header">
-            <div class="terminal-buttons">
-                <div class="terminal-button close"></div>
-                <div class="terminal-button minimize"></div>
-                <div class="terminal-button maximize"></div>
-            </div>
-            <div class="terminal-title">chandra@portfolio:~</div>
-        </div>
-        <div class="terminal-body" id="terminal-body">
-            <div class="terminal-welcome">
-                <pre class="ascii-art">
-  ____  _                     _             ____             _     _   _            
-/ ____ | |                   | |           |  _ \           | |   | | (_)           
-| |    | |__   __ _ _ __   __| |_ __ __ _  | |_) | __ _  ___| |__ | |_ _  __ _ _ __ 
-| |    | '_ \ / _` | '_ \ / _` | '__/ _` | |  _ < / _` |/ __| '_ \| __| |/ _` | '__|
-| |____| | | | (_| | | | | (_| | | | (_| | | |_) | (_| | (__| | | | |_| | (_| | |   
- \_____|_| |_|\__,_|_| |_|\__,_|_|  \__,_| |____/ \__,_|\___|_| |_|\__|_|\__,_|_|                                      
-                </pre>
-                <p>Selamat datang di terminal portfolio saya! Ketik <span class="command">/help</span> untuk melihat daftar perintah.</p>
-            </div>
-            <div class="terminal-output" id="terminal-output"></div>
-            <div class="terminal-input-line">
-                <span class="terminal-prompt" id="terminal-active">chandra@portfolioa:~/home$</span>
-                <input type="text" id="terminal-input" class="terminal-input" autofocus spellcheck="false">
-            </div>
-        </div>
+    <canvas id="bg-canvas"></canvas>
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <!-- Mobile Header -->
+    <div class="mobile-header">
+        <div class="mobile-logo">CB.</div>
+        <button class="menu-toggle" aria-label="Toggle Menu">
+            <i class="ri-menu-4-line"></i>
+        </button>
     </div>
+
+    <div class="main-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1 data-i18n="name">Chandra Bachtiar</h1>
+                <h2 data-i18n="role">Senior Fullstack Developer | n8n Business Automation</h2>
+
+                <div class="lang-switch">
+                    <button id="lang-toggle" class="btn-lang">
+                        <span class="lang-text">ID</span> / <span class="lang-text active">EN</span>
+                    </button>
+                </div>
+            </div>
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="#home" class="active" data-i18n="nav_home">Home</a></li>
+                    <li><a href="#about" data-i18n="nav_about">About</a></li>
+                    <li><a href="#experience" data-i18n="nav_experience">Experience</a></li>
+                    <li><a href="#projects" data-i18n="nav_projects">Projects</a></li>
+                    <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <p>&copy; 2026 Chandra Bachtiar</p>
+            </div>
+        </aside>
+
+        <main class="content-area">
+            <section id="home" class="section hero-section">
+                <div class="hero-content">
+                    <h1 class="glitch-text" data-text="Building Solutions," data-i18n="hero_title1">Building Solutions,</h1>
+                    <h1 class="glitch-text" data-text="Beyond Applications" data-i18n="hero_title2"> Beyond Applications</h1>
+                    <p class="hero-subtitle" data-i18n="hero_subtitle">Delivering custom systems designed to solve real business problems.</p>
+                    <div class="cta-group">
+                        <a href="#projects" class="btn primary" data-i18n="btn_view_work">View Work</a>
+                        <a href="#contact" class="btn secondary" data-i18n="btn_lets_talk">Lets Talk</a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <img src="image.png" alt="Profile Logic" class="hero-img">
+                    <div class="abstract-shape"></div>
+                </div>
+            </section>
+
+            <section id="about" class="section about-section">
+                <h2 class="section-title" data-i18n="section_about">About Me</h2>
+                <p class="lead" data-i18n="about_desc">With over 8 years of experience in the ever-evolving landscape of
+                    web development, I
+                    bridge the gap between complex backend logic and intuitive frontend design.</p>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="count">8+</span>
+                        <span class="label" data-i18n="stat_exp">Years Exp</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="count">50+</span>
+                        <span class="label" data-i18n="stat_projects">Projects</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="count">20+</span>
+                        <span class="label" data-i18n="stat_clients">Happy Clients</span>
+                    </div>
+                </div>
+                <div class="tech-stack">
+                    <h3 data-i18n="tech_title">Technologies</h3>
+                    <div class="tags">
+                        <span>JavaScript (ES6+)</span>
+                        <span>TypeScript</span>
+                        <span>React</span>
+                        <span>Node.js</span>
+                        <span>Go</span>
+                        <span>PostgreSQL</span>
+                        <span>Docker</span>
+                        <span>AWS</span>
+                        <span>Kubernetes</span>
+                        <span>n8n</span>
+                    </div>
+                </div>
+            </section>
+
+            <section id="experience" class="section experience-section">
+                <h2 class="section-title" data-i18n="section_experience">Experience</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-date">2023 - Present</div>
+                        <div class="timeline-content">
+                            <h3 data-i18n="exp1_role">Senior Lead Developer</h3>
+                            <h4>TechCorp Solutions</h4>
+                            <p data-i18n="exp1_desc">Leading a team of 12 developers, re-architecting legacy monoliths
+                                into microservices,
+                                improving system uptime by 99.9%.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">2020 - 2023</div>
+                        <div class="timeline-content">
+                            <h3 data-i18n="exp2_role">Fullstack Developer</h3>
+                            <h4>Innovate Digital</h4>
+                            <p data-i18n="exp2_desc">Developed high-performance e-commerce platforms. Implemented CI/CD
+                                pipelines reducing
+                                deployment time by 40%.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">2018 - 2020</div>
+                        <div class="timeline-content">
+                            <h3 data-i18n="exp3_role">Frontend Developer</h3>
+                            <h4>Creative Studio</h4>
+                            <p data-i18n="exp3_desc">Collaborated with designers to bring pixel-perfect UIs to life
+                                using React and WebGL.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="projects" class="section projects-section">
+                <h2 class="section-title" data-i18n="section_projects">Selected Works</h2>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-image">
+                            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                                alt="Project 1">
+                        </div>
+                        <div class="project-info">
+                            <h3>FinFlow Dashboard</h3>
+                            <p data-i18n="proj1_desc">real-time financial analytics platform with data visualization.
+                            </p>
+                            <div class="project-tags">
+                                <span>React</span>
+                                <span>D3.js</span>
+                                <span>Node</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-image">
+                            <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                                alt="Project 2">
+                        </div>
+                        <div class="project-info">
+                            <h3>E-Comm PWA</h3>
+                            <p data-i18n="proj2_desc">Progressive web app for innovative fashion brand with offline
+                                capabilities.</p>
+                            <div class="project-tags">
+                                <span>Vue</span>
+                                <span>Firebase</span>
+                                <span>PWA</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-image">
+                            <img src="https://images.unsplash.com/photo-1555099962-4199c345e5dd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                                alt="Project 3">
+                        </div>
+                        <div class="project-info">
+                            <h3>AI Content Tool</h3>
+                            <p data-i18n="proj3_desc">SaaS platform integrating OpenAI API for content generation
+                                assistance.</p>
+                            <div class="project-tags">
+                                <span>Next.js</span>
+                                <span>Python</span>
+                                <span>OpenAI</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="contact" class="section contact-section">
+                <h2 class="section-title" data-i18n="section_contact">Get In Touch</h2>
+                <div class="contact-wrapper">
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-group">
+                            <input type="text" id="name" required placeholder=" ">
+                            <label for="name" data-i18n="form_name">Name</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" required placeholder=" ">
+                            <label for="email" data-i18n="form_email">Email</label>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" rows="4" required placeholder=" "></textarea>
+                            <label for="message" data-i18n="form_message">Message</label>
+                        </div>
+                        <button type="submit" class="btn primary" data-i18n="form_send">Send Message</button>
+                    </form>
+                    <div class="contact-info">
+                        <h3 data-i18n="contact_heading">Let's build something amazing together.</h3>
+                        <p data-i18n="contact_sub">Open for freelance opportunities and consulting.</p>
+                        <a href="mailto:hello@alexsterling.dev" class="email-link">hello@chandrabachtiar.dev</a>
+                        <div class="social-links contact-socials">
+                            <a href="#" aria-label="GitHub"><i class="ri-github-line"></i></a>
+                            <a href="#" aria-label="LinkedIn"><i class="ri-linkedin-box-line"></i></a>
+                            <a href="#" aria-label="Twitter"><i class="ri-twitter-x-line"></i></a>
+                            <a href="#" aria-label="Dribbble"><i class="ri-dribbble-line"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
     <script src="script.js"></script>
 </body>
+
 </html>
