@@ -1,0 +1,4 @@
+2026/04/07-12:02:04.074 9f38 Creating DB C:\Data\Project\chandra-bachtiar\.edge-q-experience\Default\EdgeCoupons/coupons_data.db since it was missing.
+2026/04/07-12:02:04.095 9f38 Reusing MANIFEST C:\Data\Project\chandra-bachtiar\.edge-q-experience\Default\EdgeCoupons/coupons_data.db/MANIFEST-000001
+2026/04/07-12:02:04.106 48b4 Level-0 table #5: started
+2026/04/07-12:02:04.118 48b4 Level-0 table #5: 682105 bytes OK
