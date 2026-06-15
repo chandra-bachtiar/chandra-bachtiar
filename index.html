@@ -7,9 +7,22 @@
     <meta name="theme-color" content="#0a0a0a">
     <title>Chandra Bachtiar — Senior Fullstack Developer</title>
     <link rel="icon" type="image/png" href="image.png">
-    <link rel="stylesheet" href="style.css?v=048c564">
+    <link rel="stylesheet" href="style.css?v=WAH1">
 </head>
 <body>
+    <!-- Custom cursor -->
+    <div class="cursor" aria-hidden="true">
+        <div class="cursor__dot"></div>
+        <div class="cursor__ring"></div>
+    </div>
+
+    <!-- Animated backdrop -->
+    <div class="backdrop" aria-hidden="true">
+        <span class="blob blob--1"></span>
+        <span class="blob blob--2"></span>
+        <span class="blob blob--3"></span>
+    </div>
+
     <main class="card" role="main">
         <img
             class="avatar"
@@ -46,6 +59,231 @@
                 <span>Email</span>
             </a>
         </nav>
+
+        <!-- More About Me trigger -->
+        <button class="more" type="button" aria-controls="about-overlay" aria-expanded="false" data-more>
+            <span class="more__label" data-more-label>More about me</span>
+            <span class="more__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="16" height="16"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </span>
+            <span class="more__sheen" aria-hidden="true"></span>
+        </button>
     </main>
+
+    <!-- Overlay: full experience -->
+    <section id="about-overlay" class="overlay" aria-hidden="true" data-overlay>
+        <div class="overlay__noise" aria-hidden="true"></div>
+
+        <!-- Top bar -->
+        <header class="ov-top">
+            <span class="ov-top__brand" data-reveal>CB / portfolio</span>
+            <button class="ov-close" type="button" aria-label="Tutup" data-close>
+                <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></svg>
+                <span>Close</span>
+            </button>
+        </header>
+
+        <!-- Section 1 — Hero -->
+        <section class="ov-section ov-hero" data-section>
+            <p class="ov-eyebrow" data-reveal>01 — Hello</p>
+            <h2 class="ov-hero__title" data-words>
+                <span>I build</span>
+                <span>fast,</span>
+                <span>calm</span>
+                <span>products</span>
+                <span>for</span>
+                <span>teams</span>
+                <span>that</span>
+                <em>ship.</em>
+            </h2>
+            <div class="ov-hero__meta">
+                <div class="ov-meta" data-reveal>
+                    <span class="ov-meta__k">Based in</span>
+                    <span class="ov-meta__v">Yogyakarta, ID</span>
+                </div>
+                <div class="ov-meta" data-reveal>
+                    <span class="ov-meta__k">Role</span>
+                    <span class="ov-meta__v">Senior Fullstack</span>
+                </div>
+                <div class="ov-meta" data-reveal>
+                    <span class="ov-meta__k">Available</span>
+                    <span class="ov-meta__v ov-meta__v--dot">Open to chat</span>
+                </div>
+            </div>
+            <div class="ov-scroll" aria-hidden="true">
+                <span>Scroll</span>
+                <span class="ov-scroll__line"></span>
+            </div>
+        </section>
+
+        <!-- Section 2 — About -->
+        <section class="ov-section ov-about" data-section>
+            <p class="ov-eyebrow" data-reveal>02 — About</p>
+            <p class="ov-about__text" data-words>
+                <span>Saya</span><span>fullstack</span><span>developer</span><span>yang</span><span>suka</span><span>bikin</span><span>sesuatu</span><span>yang</span><span>jalan</span><span>—</span><span>bukan</span><span>yang</span><span>cuma</span><span>keliatan</span><span>cantik.</span>
+                <span>Fokus</span><span>di</span><span>Next.js,</span><span>TypeScript,</span><span>dan</span><span>arsitektur</span><span>yang</span><span>bisa</span><span>di-scale</span><span>tanpa</span><span>drama.</span>
+                <span>Nganggur</span><span>kalau</span><span>gak</span><span>nulis</span><span>kode</span><span>atau</span><span>maintain</span><span>sesuatu</span><span>yang</span><span>orang</span><span>lain</span><span>andelin.</span>
+            </p>
+        </section>
+
+        <!-- Section 3 — Stats -->
+        <section class="ov-section ov-stats" data-section>
+            <p class="ov-eyebrow" data-reveal>03 — Numbers</p>
+            <div class="ov-stats__grid">
+                <div class="ov-stat" data-reveal>
+                    <span class="ov-stat__n" data-count="6">0</span>
+                    <span class="ov-stat__s">+</span>
+                    <span class="ov-stat__l">Years coding</span>
+                </div>
+                <div class="ov-stat" data-reveal>
+                    <span class="ov-stat__n" data-count="40">0</span>
+                    <span class="ov-stat__s">+</span>
+                    <span class="ov-stat__l">Projects shipped</span>
+                </div>
+                <div class="ov-stat" data-reveal>
+                    <span class="ov-stat__n" data-count="15">0</span>
+                    <span class="ov-stat__s">+</span>
+                    <span class="ov-stat__l">Stacks in belt</span>
+                </div>
+                <div class="ov-stat" data-reveal>
+                    <span class="ov-stat__n" data-count="99">0</span>
+                    <span class="ov-stat__s">%</span>
+                    <span class="ov-stat__l">Coffee fueled</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4 — Experience timeline -->
+        <section class="ov-section ov-exp" data-section>
+            <p class="ov-eyebrow" data-reveal>04 — Experience</p>
+            <ol class="ov-timeline">
+                <li class="ov-tl__item" data-reveal>
+                    <span class="ov-tl__dot"></span>
+                    <span class="ov-tl__when">2024 — Now</span>
+                    <h3 class="ov-tl__role">Senior Fullstack Developer</h3>
+                    <p class="ov-tl__where">Coding Collective Indonesia</p>
+                    <p class="ov-tl__what">Lead engineer, arsitektur sistem, code review, dan nge-ship produk klien dari 0 ke production.</p>
+                </li>
+                <li class="ov-tl__item" data-reveal>
+                    <span class="ov-tl__dot"></span>
+                    <span class="ov-tl__when">2026 — Now</span>
+                    <h3 class="ov-tl__role">Founder</h3>
+                    <p class="ov-tl__where">Naowledge — naowledge.app</p>
+                    <p class="ov-tl__what">Bikin software house. Next.js + Cloudflare Pages. Bilingual team. Jalan.</p>
+                </li>
+                <li class="ov-tl__item" data-reveal>
+                    <span class="ov-tl__dot"></span>
+                    <span class="ov-tl__when">2022 — 2024</span>
+                    <h3 class="ov-tl__role">PMO</h3>
+                    <p class="ov-tl__where">Coding Collective Indonesia</p>
+                    <p class="ov-tl__what">Bridge antara bisnis dan engineering. Bikin proses gak chaos.</p>
+                </li>
+                <li class="ov-tl__item" data-reveal>
+                    <span class="ov-tl__dot"></span>
+                    <span class="ov-tl__when">2019 — 2022</span>
+                    <h3 class="ov-tl__role">Fullstack Developer</h3>
+                    <p class="ov-tl__where">Various</p>
+                    <p class="ov-tl__what">Bikin web app, API, dan belajar banyak hal yang gak diajarin di kampus.</p>
+                </li>
+            </ol>
+        </section>
+
+        <!-- Section 5 — Projects -->
+        <section class="ov-section ov-proj" data-section>
+            <p class="ov-eyebrow" data-reveal>05 — Selected work</p>
+            <div class="ov-proj__grid">
+                <article class="ov-card" data-reveal data-tilt>
+                    <span class="ov-card__tag">SaaS</span>
+                    <h3 class="ov-card__title">Naowledge</h3>
+                    <p class="ov-card__desc">Software house bilingual. Next.js + Cloudflare. Dari 0 ke launch.</p>
+                    <span class="ov-card__foot">naowledge.app</span>
+                </article>
+                <article class="ov-card" data-reveal data-tilt>
+                    <span class="ov-card__tag">Product</span>
+                    <h3 class="ov-card__title">Food Merchant</h3>
+                    <p class="ov-card__desc">POS + stock management. Realtime, low-stock alert, order pipeline.</p>
+                    <span class="ov-card__foot">internal</span>
+                </article>
+                <article class="ov-card" data-reveal data-tilt>
+                    <span class="ov-card__tag">Site</span>
+                    <h3 class="ov-card__title">This page</h3>
+                    <p class="ov-card__desc">Portfolio. No framework, no build step. Pure HTML + CSS + a sprinkle of JS.</p>
+                    <span class="ov-card__foot">chand.my.id</span>
+                </article>
+                <article class="ov-card" data-reveal data-tilt>
+                    <span class="ov-card__tag">AI</span>
+                    <h3 class="ov-card__title">Pipeline Agents</h3>
+                    <p class="ov-card__desc">Multi-agent cron pipeline. Senior dev → tech-lead review → auto merge.</p>
+                    <span class="ov-card__foot">internal</span>
+                </article>
+            </div>
+        </section>
+
+        <!-- Section 6 — Stack marquee -->
+        <section class="ov-section ov-stack" data-section>
+            <p class="ov-eyebrow" data-reveal>06 — Stack</p>
+            <div class="ov-marquee" aria-hidden="true">
+                <div class="ov-marquee__track">
+                    <span>TypeScript</span><span>•</span>
+                    <span>Next.js</span><span>•</span>
+                    <span>React</span><span>•</span>
+                    <span>Node.js</span><span>•</span>
+                    <span>PostgreSQL</span><span>•</span>
+                    <span>Cloudflare</span><span>•</span>
+                    <span>Tailwind</span><span>•</span>
+                    <span>Prisma</span><span>•</span>
+                    <span>tRPC</span><span>•</span>
+                    <span>Bun</span><span>•</span>
+                    <span>Docker</span><span>•</span>
+                    <span>TypeScript</span><span>•</span>
+                    <span>Next.js</span><span>•</span>
+                    <span>React</span><span>•</span>
+                    <span>Node.js</span><span>•</span>
+                    <span>PostgreSQL</span><span>•</span>
+                    <span>Cloudflare</span><span>•</span>
+                    <span>Tailwind</span><span>•</span>
+                    <span>Prisma</span><span>•</span>
+                    <span>tRPC</span><span>•</span>
+                    <span>Bun</span><span>•</span>
+                    <span>Docker</span><span>•</span>
+                </div>
+            </div>
+            <div class="ov-marquee ov-marquee--rev" aria-hidden="true">
+                <div class="ov-marquee__track">
+                    <span>Figma</span><span>•</span>
+                    <span>Vercel</span><span>•</span>
+                    <span>Supabase</span><span>•</span>
+                    <span>Redis</span><span>•</span>
+                    <span>Stripe</span><span>•</span>
+                    <span>GitHub Actions</span><span>•</span>
+                    <span>Linear</span><span>•</span>
+                    <span>Notion</span><span>•</span>
+                    <span>Figma</span><span>•</span>
+                    <span>Vercel</span><span>•</span>
+                    <span>Supabase</span><span>•</span>
+                    <span>Redis</span><span>•</span>
+                    <span>Stripe</span><span>•</span>
+                    <span>GitHub Actions</span><span>•</span>
+                    <span>Linear</span><span>•</span>
+                    <span>Notion</span><span>•</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 7 — CTA -->
+        <section class="ov-section ov-cta" data-section>
+            <p class="ov-eyebrow" data-reveal>07 — Let's talk</p>
+            <h2 class="ov-cta__h" data-words>
+                <span>Got</span><span>an</span><span>idea?</span>
+            </h2>
+            <a class="ov-cta__btn" href="mailto:chandrabahtiar25@gmail.com" data-tilt>
+                <span>Drop a line</span>
+                <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 5l7 7-7 7"/></svg>
+                <span class="ov-cta__pulse" aria-hidden="true"></span>
+            </a>
+        </section>
+    </section>
+
+    <script src="app.js?v=WAH1" defer></script>
 </body>
 </html>
