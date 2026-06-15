@@ -921,6 +921,28 @@ body.js-ready [data-words].is-in > * {
     .ov-progress { display: none; }
 }
 
+/* === First-paint loader === */
+.loader {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: var(--ov-bg);
+    display: grid;
+    place-items: center;
+    transition: opacity var(--t-slow) var(--ease), visibility 0s linear var(--t-slow);
+}
+.loader.is-out { opacity: 0; visibility: hidden; }
+.loader__ring {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: conic-gradient(from 0deg, transparent 0deg, var(--ov-accent) 270deg, transparent 360deg);
+    -webkit-mask: radial-gradient(circle, transparent 22px, #000 23px);
+            mask: radial-gradient(circle, transparent 22px, #000 23px);
+    animation: loader-spin 1.4s linear infinite;
+}
+@keyframes loader-spin { to { transform: rotate(360deg); } }
+
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
         animation-duration: 0.01ms !important;

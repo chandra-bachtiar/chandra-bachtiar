@@ -11,6 +11,23 @@
     // (no-JS users get visible content as a fallback).
     if (!prefersReduce) document.body.classList.add('js-ready');
 
+    // === First-paint loader =====================================
+    // Fade out on window.load so heavy assets (image.png) get a moment
+    // to decode before the page reveals. Respects prefers-reduced-motion
+    // by skipping the transition.
+    const loader = document.querySelector('.loader');
+    const hideLoader = () => {
+        if (!loader) return;
+        if (prefersReduce) {
+            loader.remove();
+        } else {
+            loader.classList.add('is-out');
+            setTimeout(() => loader.remove(), 1400);
+        }
+    };
+    if (document.readyState === 'complete') hideLoader();
+    else window.addEventListener('load', hideLoader, { once: true });
+
     // === Word-by-word stagger setup =============================
     // Each [data-words] container holds inline spans. We add
     // transition-delay to each so the reveal cascades.
