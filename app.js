@@ -7,6 +7,10 @@
     const prefersReduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
     const isTouch = matchMedia('(hover: none)').matches;
 
+    // Mark JS as ready so CSS can hide [data-reveal] / [data-words] > *
+    // (no-JS users get visible content as a fallback).
+    if (!prefersReduce) document.body.classList.add('js-ready');
+
     // === Word-by-word stagger setup =============================
     // Each [data-words] container holds inline spans. We add
     // transition-delay to each so the reveal cascades.
@@ -24,7 +28,7 @@
         let i = 0;
         for (const k of kids) {
             if (k.nodeType === Node.ELEMENT_NODE) {
-                k.style.transitionDelay = `${i * 32}ms`;
+                k.style.transitionDelay = `${i * 20}ms`;
                 i++;
             } else {
                 // text node — split into word spans
@@ -39,7 +43,7 @@
                     } else {
                         const s = document.createElement('span');
                         s.textContent = tok;
-                        s.style.transitionDelay = `${(i + j) * 32}ms`;
+                        s.style.transitionDelay = `${(i + j) * 20}ms`;
                         frag.append(s);
                         j++;
                     }

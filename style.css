@@ -397,24 +397,24 @@ body.ov-open .card {
     background: var(--ov-muted);
 }
 
-/* Reveal animations */
-[data-reveal] {
+/* Reveal animations — only hide when JS is ready, so no-JS users see content */
+body.js-ready [data-reveal] {
     opacity: 0;
     transform: translateY(28px);
     transition: opacity 900ms var(--ease), transform 900ms var(--ease);
     will-change: opacity, transform;
 }
-[data-reveal].is-in { opacity: 1; transform: translateY(0); }
+body.js-ready [data-reveal].is-in { opacity: 1; transform: translateY(0); }
 
-/* Word-by-word reveal for big text */
-[data-words] span {
+/* Word-by-word reveal for big text — parent gets is-in, children inherit visible state */
+body.js-ready [data-words] > * {
     display: inline-block;
     opacity: 0;
     transform: translateY(110%) rotate(8deg);
     transition: opacity 800ms var(--ease), transform 800ms var(--ease);
     will-change: opacity, transform;
 }
-[data-words] span.is-in {
+body.js-ready [data-words].is-in > * {
     opacity: 1;
     transform: translateY(0) rotate(0);
 }
@@ -803,7 +803,7 @@ body.ov-open .card {
 
 /* === Reveal stagger via index === */
 [data-reveal].is-in,
-[data-words] span.is-in { transition-delay: 0ms; }
+[data-words].is-in > * { transition-delay: 0ms; }
 
 /* === Mobile === */
 @media (max-width: 768px) {
@@ -837,5 +837,5 @@ body.ov-open .card {
         animation-duration: 0.01ms !important;
         transition-duration: 0.01ms !important;
     }
-    [data-reveal], [data-words] span { opacity: 1; transform: none; }
+    [data-reveal], [data-words] > * { opacity: 1; transform: none; }
 }
