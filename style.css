@@ -73,6 +73,14 @@ body.ov-open { overflow: hidden; }
     outline-offset: 2px;
 }
 
+button:focus-visible,
+a:focus-visible,
+[tabindex]:focus-visible {
+    outline: 2px solid var(--ov-accent);
+    outline-offset: 4px;
+    border-radius: inherit;
+}
+
 /* === Animated backdrop blobs on landing === */
 .backdrop {
     position: fixed;
