@@ -1,0 +1,20 @@
+#!/bin/bash
+# Pre-commit hook: verify ?v= cache-bust in index.html is a 7+ char git short SHA.
+# Rejects placeholders like ?v=WAH3 or any non-hex / too-short value.
+# Install once per clone:  bash scripts/install-hooks.sh
+set -e
+
+if ! git diff --cached --name-only | grep -q '^index.html$'; then
+  exit 0
+fi
+
+# Reject anything matching ?v= that is NOT a 7+ char hex value.
+if perl -ne 'exit 1 if /\?v=(?![0-9a-f]{7,}\b)/i' index.html; then
+  exit 0
+fi
+
+echo "ERROR: ?v= cache-bust in index.html must be a 7+ char git short SHA" >&2
+echo "Run:  SHORT=\$(git rev-parse --short HEAD) && sed -i 's/?v=[A-Za-z0-9_-]\\+/v='\$SHORT'/g' index.html" >&2
+echo "Found:" >&2
+grep -nE '\?v=' index.html >&2
+exit 1
