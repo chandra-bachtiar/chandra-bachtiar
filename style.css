@@ -166,6 +166,22 @@ body.ov-open .card {
     pointer-events: none;
 }
 
+/* Hero card entrance: fade + 16px slide up over --t-slow var(--ease) */
+@keyframes card-entrance {
+    from { opacity: 0; transform: translateY(calc(-50% + 16px)); }
+    to   { opacity: 1; transform: translateY(-50%); }
+}
+.card {
+    animation: card-entrance var(--t-slow) var(--ease) both;
+}
+/* Stagger children reveals: name (100ms) → role (160) → org (220) → location (280) → links (340) → more (400) */
+.card > .name[data-reveal]      { transition-delay: 100ms; }
+.card > .role[data-reveal]      { transition-delay: 160ms; }
+.card > .org[data-reveal]       { transition-delay: 220ms; }
+.card > .location[data-reveal]  { transition-delay: 280ms; }
+.card > .links[data-reveal]     { transition-delay: 340ms; }
+.card > .more[data-reveal]      { transition-delay: 400ms; }
+
 .avatar {
     display: block;
     width: 140px;
