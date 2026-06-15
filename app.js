@@ -322,4 +322,32 @@
             });
         });
     }
+
+    // === Eased overlay scroll (wheel only) =======================
+    // Lerp-driven scroll on .overlay when wheel is used. Touch and
+    // prefers-reduced-motion both keep native behavior.
+    if (overlay && !prefersReduce && !isTouch) {
+        const SCROLL_EASE = 0.1;
+        let targetScroll = overlay.scrollTop;
+        let currentScroll = overlay.scrollTop;
+        let lerpRaf = null;
+        const tick = () => {
+            const diff = targetScroll - currentScroll;
+            if (Math.abs(diff) < 0.5) {
+                currentScroll = targetScroll;
+                overlay.scrollTop = currentScroll;
+                lerpRaf = null;
+                return;
+            }
+            currentScroll += diff * SCROLL_EASE;
+            overlay.scrollTop = currentScroll;
+            lerpRaf = requestAnimationFrame(tick);
+        };
+        overlay.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            const max = overlay.scrollHeight - overlay.clientHeight;
+            targetScroll = Math.max(0, Math.min(max, targetScroll + e.deltaY));
+            if (!lerpRaf) lerpRaf = requestAnimationFrame(tick);
+        }, { passive: false });
+    }
 })();

@@ -330,7 +330,7 @@ body.ov-open .card {
     border-radius: 3px;
 }
 .overlay {
-    scroll-snap-type: y mandatory;
+    scroll-snap-type: y proximity;
     scroll-padding-top: 0;
 }
 
