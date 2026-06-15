@@ -295,4 +295,31 @@
         el.style.setProperty('--mx', '50%');
         el.style.setProperty('--my', '50%');
     });
+
+    // === Magnetic scroll — progress dots =========================
+    const sections = [...document.querySelectorAll('[data-section]')];
+    const dots = [...document.querySelectorAll('[data-progress-dot]')];
+    if (sections.length === dots.length && sections.length) {
+        const setActive = (idx) => {
+            dots.forEach((d, i) => d.classList.toggle('is-in', i === idx));
+        };
+        // Track which section is most visible. With mandatory scroll-snap
+        // each section fills the viewport when snapped.
+        const sectionObs = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+                    const idx = sections.indexOf(entry.target);
+                    if (idx >= 0) setActive(idx);
+                }
+            });
+        }, { threshold: [0.5, 0.6, 0.7] });
+        sections.forEach((s) => sectionObs.observe(s));
+
+        // Click a dot to scroll to that section
+        dots.forEach((dot, i) => {
+            dot.addEventListener('click', () => {
+                sections[i]?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+    }
 })();
