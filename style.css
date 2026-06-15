@@ -1,0 +1,150 @@
+/* Chandra Bachtiar — minimal portfolio
+   Centered single-viewport card. No animations, no JS. */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg: #fafafa;
+    --fg: #0a0a0a;
+    --muted: #6b6b6b;
+    --accent: #1a1a1a;
+    --line: rgba(0, 0, 0, 0.08);
+    --card: #ffffff;
+    --radius: 16px;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        "Helvetica Neue", Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+
+.card {
+    width: 100%;
+    max-width: 380px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 40px 32px 32px;
+    text-align: center;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+.avatar {
+    display: block;
+    width: 140px;
+    height: 140px;
+    margin: 0 auto 24px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+    border: 1px solid var(--line);
+    background: #eee;
+}
+
+.name {
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--fg);
+    margin-bottom: 6px;
+}
+
+.role {
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 28px;
+    line-height: 1.45;
+}
+
+.role .at {
+    margin: 0 4px;
+    color: var(--line);
+}
+
+.role .org {
+    color: var(--fg);
+    font-weight: 500;
+}
+
+.links {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    border-top: 1px solid var(--line);
+    padding-top: 20px;
+}
+
+.links a {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
+    padding: 10px 12px;
+    color: var(--fg);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 8px;
+    transition: background-color 120ms ease;
+}
+
+.links a:hover,
+.links a:focus-visible {
+    background: rgba(0, 0, 0, 0.04);
+    outline: none;
+}
+
+.links a:focus-visible {
+    box-shadow: 0 0 0 2px var(--fg);
+}
+
+.links a svg {
+    flex-shrink: 0;
+    color: var(--muted);
+    transition: color 120ms ease;
+}
+
+.links a:hover svg,
+.links a:focus-visible svg {
+    color: var(--fg);
+}
+
+.links a span {
+    flex: 1;
+    text-align: left;
+}
+
+/* Mobile tweaks */
+@media (max-width: 480px) {
+    .card {
+        padding: 32px 24px 24px;
+    }
+
+    .avatar {
+        width: 120px;
+        height: 120px;
+    }
+
+    .name {
+        font-size: 20px;
+    }
+}
