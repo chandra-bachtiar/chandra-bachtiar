@@ -977,6 +977,13 @@ body.ov-open .ov-progress {
     isolation: isolate;
     content-visibility: auto;
     contain-intrinsic-size: 100vh;
+    transform: translateX(-12px);
+    opacity: 0;
+    transition: transform var(--t-mid) var(--ease), opacity var(--t-mid) var(--ease);
+}
+.ov-section.is-active {
+    transform: translateX(0);
+    opacity: 1;
 }
 .ov-section::before {
     content: "";
