@@ -2024,6 +2024,24 @@ body.js-ready [data-words].is-in > * {
     rotate: -8deg;
 }
 
+/* === Click ripples =============================================
+   Injected by app.js on .ov-cta__btn, .more, .ov-close, .ov-progress__dot.
+   currentColor blends with the button text on hover. */
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: currentColor;
+    transform: scale(0);
+    opacity: 0.5;
+    pointer-events: none;
+    transition: transform 600ms, opacity 600ms;
+    z-index: 0;
+}
+.ripple.is-active {
+    transform: scale(4);
+    opacity: 0;
+}
+
 /* === Footer === */
 .ov-foot {
     position: relative;

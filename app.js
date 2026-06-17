@@ -601,4 +601,31 @@
             document.body.removeChild(ta);
         }
     });
+
+    // === Click ripples ===========================================
+    // Inject a span.ripple at the click coords on primary buttons,
+    // scale it out via CSS, then remove. Skipped for reduced-motion.
+    if (!prefersReduce) {
+        const rippleSel = '.ov-cta__btn, .more, .ov-close, .ov-progress__dot';
+        document.querySelectorAll(rippleSel).forEach((el) => {
+            // Buttons must contain the ripple for absolute positioning.
+            const stylePos = getComputedStyle(el).position;
+            if (stylePos === 'static') el.style.position = 'relative';
+            el.style.overflow = 'hidden';
+            el.addEventListener('pointerdown', (ev) => {
+                const r = el.getBoundingClientRect();
+                const size = Math.max(r.width, r.height);
+                const ripple = document.createElement('span');
+                ripple.className = 'ripple';
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = (ev.clientX - r.left - size / 2) + 'px';
+                ripple.style.top = (ev.clientY - r.top - size / 2) + 'px';
+                el.appendChild(ripple);
+                // Force reflow so the transition runs from scale(0) → scale(4).
+                void ripple.offsetWidth;
+                ripple.classList.add('is-active');
+                setTimeout(() => ripple.remove(), 700);
+            });
+        });
+    }
 })();
