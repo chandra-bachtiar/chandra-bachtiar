@@ -284,28 +284,36 @@
     });
 
     // === Reveal-on-scroll using IntersectionObserver ============
-    const revealEls = document.querySelectorAll('[data-reveal]');
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('is-in');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
-    revealEls.forEach((el) => observer.observe(el));
+    // Skipped under prefers-reduced-motion: CSS keeps content visible
+    // (body.js-ready is not set, see top of file) and revealAll() makes
+    // any overlay-scoped reveals explicit so reduced-motion users see
+    // everything immediately with no flicker.
+    if (!prefersReduce) {
+        const revealEls = document.querySelectorAll('[data-reveal]');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-in');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+        revealEls.forEach((el) => observer.observe(el));
 
-    // Word-reveal observer — adds is-in to the container so its child
-    // spans (already styled with [data-words] span.is-in CSS rules) animate.
-    const wordObserver = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('is-in');
-                wordObserver.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
-    wordEls.forEach((el) => wordObserver.observe(el));
+        // Word-reveal observer — adds is-in to the container so its child
+        // spans (already styled with [data-words] span.is-in CSS rules) animate.
+        const wordObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-in');
+                    wordObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
+        wordEls.forEach((el) => wordObserver.observe(el));
+    } else {
+        revealAll();
+    }
 
     // === Count-up animation for stats ===========================
     const animateCount = (el) => {
