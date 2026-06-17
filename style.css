@@ -168,9 +168,9 @@ body.ov-open .cursor {
     border-radius: 999px;
     background: var(--cursor-dot);
     transform: translate(-50%, -50%);
-    transition: width 240ms var(--ease), height 240ms var(--ease),
-                opacity 200ms var(--ease), background-color 200ms var(--ease),
-                box-shadow 200ms var(--ease);
+    transition: width var(--t-fast) var(--ease), height var(--t-fast) var(--ease),
+                opacity var(--t-fast) var(--ease), background-color var(--t-fast) var(--ease),
+                transform var(--t-fast) var(--ease), box-shadow var(--t-fast) var(--ease);
 }
 .cursor__ring {
     width: 22px;
@@ -178,9 +178,11 @@ body.ov-open .cursor {
     border: 1px solid var(--cursor-ring);
     border-radius: 999px;
     transform: translate(-50%, -50%);
-    transition: width 320ms var(--ease), height 320ms var(--ease),
-                border-color 220ms var(--ease), box-shadow 220ms var(--ease),
-                background-color 220ms var(--ease);
+    transition: width var(--t-fast) var(--ease), height var(--t-fast) var(--ease),
+                border-color var(--t-fast) var(--ease), border-width var(--t-fast) var(--ease),
+                box-shadow var(--t-fast) var(--ease),
+                background-color var(--t-fast) var(--ease),
+                mix-blend-mode var(--t-fast) var(--ease);
 }
 .cursor.is-hover .cursor__dot {
     width: 7px;
@@ -197,6 +199,34 @@ body.ov-open .cursor {
 body.ov-open .cursor.is-hover .cursor__ring { background: rgba(245, 245, 245, 0.06); }
 .cursor.is-down .cursor__dot { width: 5px; height: 5px; }
 .cursor.is-down .cursor__ring { width: 18px; height: 18px; }
+
+/* === Cursor states (FEAT-016) ============================== */
+/* variant visuals are driven by [data-state] on .cursor. */
+/* [data-state] rules come after .is-hover so they override. */
+.cursor[data-state="tilt"] .cursor__ring {
+    border-color: var(--ov-accent);
+    width: 34px;
+    height: 34px;
+}
+.cursor[data-state="primary"] .cursor__ring {
+    border-color: var(--ov-accent);
+    border-width: 2px;
+    width: 30px;
+    height: 30px;
+}
+.cursor[data-state="primary"] .cursor__dot {
+    transform: translate(-50%, -50%) scale(0.4);
+    opacity: 0.6;
+}
+.cursor[data-state="text"] .cursor__ring {
+    width: 48px;
+    height: 48px;
+    border-color: rgba(255, 255, 255, 0.6);
+    mix-blend-mode: difference;
+    background: transparent;
+}
+.cursor[data-state="text"] .cursor__dot { opacity: 0; }
+body.ov-open .cursor[data-state="text"] .cursor__ring { border-color: rgba(255, 255, 255, 0.7); }
 
 @media (hover: none) {
     .cursor { display: none; }
@@ -885,6 +915,50 @@ body.ov-open .ov-progress {
 }
 .ov-progress__dot:focus-visible {
     box-shadow: 0 0 0 2px var(--ov-accent);
+}
+
+/* === Mobile bottom-sheet nav (<768px replaces side dots) === */
+.ov-bottom-nav {
+    display: none;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 65;
+    padding: 8px 8px calc(8px + env(safe-area-inset-bottom, 0px));
+    background: rgba(10, 10, 10, 0.78);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-top: 1px solid var(--ov-line);
+    justify-content: space-around;
+    align-items: center;
+    gap: 4px;
+}
+.ov-bottom-nav a {
+    flex: 1;
+    text-align: center;
+    padding: 8px 4px;
+    color: var(--ov-muted);
+    font-size: 11px;
+    font-weight: 500;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: color var(--t-fast) var(--ease), background-color var(--t-fast) var(--ease);
+}
+.ov-bottom-nav a.is-active {
+    color: var(--ov-accent);
+    background: rgba(200, 255, 0, 0.08);
+}
+.ov-bottom-nav a:focus-visible {
+    outline: 2px solid var(--ov-accent);
+    outline-offset: -2px;
+}
+@media (max-width: 768px) {
+    .ov-progress { display: none; }
+    .ov-bottom-nav { display: flex; }
+}
+@media (hover: none) {
+    .ov-bottom-nav a { padding: 12px 4px; }
 }
 
 /* === Sections (common) === */

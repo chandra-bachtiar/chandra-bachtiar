@@ -35,10 +35,10 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Chandra Bachtiar">
     <link rel="apple-touch-icon" href="/image.webp">
-    <link rel="preload" as="style" href="style.css?v=28cbbd9">
-    <link rel="preload" as="script" href="app.js?v=28cbbd9">
+    <link rel="preload" as="style" href="style.css?v=4d15818">
+    <link rel="preload" as="script" href="app.js?v=4d15818">
     <link rel="preload" as="image" href="image.webp" type="image/webp" fetchpriority="high">
-    <link rel="stylesheet" href="style.css?v=28cbbd9">
+    <link rel="stylesheet" href="style.css?v=4d15818">
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -485,7 +485,7 @@
         </footer>
     </section>
 
-    <!-- Magnetic scroll progress indicator -->
+    <!-- Magnetic scroll progress indicator (desktop side dots) -->
     <nav class="ov-progress" aria-label="Section navigation" data-progress>
         <button class="ov-progress__dot is-in" type="button" data-progress-dot="0" data-label="Hello" aria-label="Go to section: Hello"></button>
         <button class="ov-progress__dot" type="button" data-progress-dot="1" data-label="About" aria-label="Go to section: About"></button>
@@ -496,10 +496,21 @@
         <button class="ov-progress__dot" type="button" data-progress-dot="6" data-label="Contact" aria-label="Go to section: Contact"></button>
     </nav>
 
+    <!-- Mobile bottom-sheet section nav (replaces side dots on <768px) -->
+    <nav class="ov-bottom-nav" aria-label="Section navigation" data-bottom-nav>
+        <a href="#" data-jump="0">Hello</a>
+        <a href="#" data-jump="1">About</a>
+        <a href="#" data-jump="2">Numbers</a>
+        <a href="#" data-jump="3">Exp</a>
+        <a href="#" data-jump="4">Work</a>
+        <a href="#" data-jump="5">Stack</a>
+        <a href="#" data-jump="6">Contact</a>
+    </nav>
+
     <!-- Copy-email toast -->
     <div class="toast" data-toast role="status" aria-live="polite" aria-hidden="true">Copied!</div>
 
-    <script src="app.js?v=28cbbd9" defer></script>
+    <script src="app.js?v=4d15818" defer></script>
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {

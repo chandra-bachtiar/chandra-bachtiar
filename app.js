@@ -102,12 +102,29 @@
         addEventListener('pointerdown', () => cursor.classList.add('is-down'));
         addEventListener('pointerup', () => cursor.classList.remove('is-down'));
 
-        const hoverables = 'a, button, [data-tilt], [data-more], [data-close]';
+        // Context-aware cursor states. data-state drives variant visuals in
+        // style.css (text/primary/tilt). Order: tilt > primary > interactive > text.
+        cursor.dataset.state = 'default';
+        const setCursorState = (state) => {
+            if (cursor.dataset.state === state) return;
+            cursor.dataset.state = state;
+        };
+        const computeState = (el) => {
+            if (!el || !el.closest) return 'default';
+            if (el.closest('[data-tilt]')) return 'tilt';
+            if (el.closest('.more, .ov-cta__btn, .ov-close')) return 'primary';
+            if (el.closest('a, button, [data-more], [data-close], input, textarea, select, label, [role="button"]')) return 'default';
+            if (el.closest('[data-cursor="text"], p, h1, h2, h3, h4, h5, h6, li, blockquote')) return 'text';
+            return 'default';
+        };
+        const isInteractiveEl = (el) => !!(el && el.closest && el.closest('a, button, [data-tilt], [data-more], [data-close]'));
         document.body.addEventListener('pointerover', (e) => {
-            if (e.target.closest(hoverables)) cursor.classList.add('is-hover');
+            setCursorState(computeState(e.target));
+            cursor.classList.toggle('is-hover', isInteractiveEl(e.target));
         });
         document.body.addEventListener('pointerout', (e) => {
-            if (e.target.closest(hoverables)) cursor.classList.remove('is-hover');
+            if (isInteractiveEl(e.target)) cursor.classList.remove('is-hover');
+            setCursorState(computeState(e.relatedTarget));
         });
 
         const tick = () => {
@@ -431,6 +448,7 @@
     // === Magnetic scroll — progress dots =========================
     const sections = [...document.querySelectorAll('[data-section]')];
     const dots = [...document.querySelectorAll('[data-progress-dot]')];
+    const navLinks = [...document.querySelectorAll('[data-bottom-nav] a[data-jump]')];
     if (sections.length === dots.length && sections.length) {
         const setActive = (idx) => {
             dots.forEach((d, i) => {
@@ -439,6 +457,10 @@
             });
             sections.forEach((s, i) => s.classList.toggle('is-active', i === idx));
             overlay?.style.setProperty('--active-section', String(idx));
+            navLinks.forEach((a, i) => {
+                a.classList.toggle('is-active', i === idx);
+                a.setAttribute('aria-current', i === idx ? 'true' : 'false');
+            });
         };
         setActive(0);
         // Track which section is most visible. With mandatory scroll-snap
@@ -457,6 +479,16 @@
         dots.forEach((dot, i) => {
             dot.addEventListener('click', () => {
                 sections[i]?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+        // Click a mobile bottom-nav link to scroll to that section
+        navLinks.forEach((link, i) => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                sections[i]?.scrollIntoView({
+                    behavior: prefersReduce ? 'auto' : 'smooth',
+                    block: 'start',
+                });
             });
         });
     }
