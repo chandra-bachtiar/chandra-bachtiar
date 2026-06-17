@@ -525,4 +525,39 @@
             raf = null;
         });
     }
+    // === Copy email button + toast =============================
+    const copyBtn = document.querySelector('[data-copy-email]');
+    const toast = document.querySelector('[data-toast]');
+    const EMAIL = 'chandrabahtiar25@gmail.com';
+    let toastTimer = null;
+    const showToast = () => {
+        if (!toast) return;
+        toast.classList.add('is-shown');
+        toast.setAttribute('aria-hidden', 'false');
+        if (toastTimer) clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => {
+            toast.classList.remove('is-shown');
+            toast.setAttribute('aria-hidden', 'true');
+            toastTimer = null;
+        }, 2000);
+    };
+    copyBtn?.addEventListener('click', async () => {
+        try {
+            await navigator.clipboard.writeText(EMAIL);
+            showToast();
+        } catch (err) {
+            // Fallback for non-clipboard environments
+            const ta = document.createElement('textarea');
+            ta.value = EMAIL;
+            ta.setAttribute('readonly', '');
+            ta.style.position = 'fixed';
+            ta.style.top = '0';
+            ta.style.left = '0';
+            ta.style.opacity = '0';
+            document.body.appendChild(ta);
+            ta.select();
+            try { document.execCommand('copy'); showToast(); } catch (_) {}
+            document.body.removeChild(ta);
+        }
+    });
 })();

@@ -30,7 +30,12 @@
     <meta name="twitter:image:alt" content="Chandra Bachtiar">
 
     <link rel="canonical" href="https://chand.my.id/">
-    <link rel="stylesheet" href="style.css?v=f8aeb22">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Chandra Bachtiar">
+    <link rel="apple-touch-icon" href="/image.webp">
+    <link rel="stylesheet" href="style.css?v=6fbf1a7">
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -117,12 +122,17 @@
                 <span>GitHub</span>
             </a>
 
-            <a href="mailto:chandrabahtiar25@gmail.com" aria-label="Email">
+            <a class="links__email" href="mailto:chandrabahtiar25@gmail.com" aria-label="Email">
                 <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
                     <path fill="currentColor" d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/>
                 </svg>
                 <span>Email</span>
             </a>
+            <button class="links__copy" type="button" aria-label="Copy email to clipboard" data-copy-email>
+                <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+                    <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M16 1H4a2 2 0 0 0-2 2v14M20 5H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2z"/>
+                </svg>
+            </button>
         </nav>
 
         <!-- More About Me trigger -->
@@ -475,6 +485,16 @@
         <button class="ov-progress__dot" type="button" data-progress-dot="6" data-label="Contact" aria-label="Go to section: Contact"></button>
     </nav>
 
-    <script src="app.js?v=f8aeb22" defer></script>
+    <!-- Copy-email toast -->
+    <div class="toast" data-toast role="status" aria-live="polite" aria-hidden="true">Copied!</div>
+
+    <script src="app.js?v=6fbf1a7" defer></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js').catch(() => {});
+            });
+        }
+    </script>
 </body>
 </html>
