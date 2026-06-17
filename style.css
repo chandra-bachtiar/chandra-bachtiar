@@ -397,6 +397,39 @@ body.ov-open .card {
 .links a svg { flex-shrink: 0; color: var(--muted); transition: color 120ms ease; }
 .links a:hover svg, .links a:focus-visible svg { color: var(--fg); }
 
+/* === Resume pill link — ghost outline, hover → fg === */
+.resume-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 14px;
+    padding: 6px 12px;
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 500;
+    text-decoration: none;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: transparent;
+    transition: color 180ms ease, border-color 180ms ease, transform 180ms ease;
+}
+.resume-link:hover,
+.resume-link:focus-visible {
+    color: var(--fg);
+    border-color: var(--fg);
+    transform: scale(1.02);
+    outline: none;
+}
+.resume-link:focus-visible { box-shadow: 0 0 0 2px var(--fg); }
+.resume-link svg { flex-shrink: 0; }
+@media (max-width: 480px) {
+    .resume-link {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+}
+
 /* === More About Me button — magnetic, sheen === */
 .more {
     --mx: 0px;
