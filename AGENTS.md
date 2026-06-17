@@ -17,93 +17,101 @@ Stack:
 Main files:
 - `index.html` contains page structure/content.
 - `style.css` contains all visual styling, layout, animations, and responsive rules.
-- `script.js` contains DOM behavior, canvas animation, mobile menu, scroll effects, contact form simulation, and EN/ID translations.
-- `image.png` is used as the hero/profile visual.
+- `app.js` contains all behavior: first-paint loader, custom cursor, backdrop
+  parallax, magnetic buttons, word-reveal stagger, overlay open/close,
+  intersection-observer reveals, count-up animation, 3D card tilt, scroll
+  progress indicator, overlay decorative parallax, and the name text-scramble.
+- `image.png` / `image.webp` / `image@2x.webp` are the avatar assets. `<picture>`
+  in `index.html` serves the webp variants; the png is the favicon.
 - `README.md` is the GitHub profile README, separate from the website.
+
+## Concept
+
+Landing = single minimalist card. The "More about me" button opens a full-viewport
+overlay (7 sections + footer) that is intentionally denser and more decorated
+than the landing. The contrast is the point: calm on entry, rich on demand.
+
+Overlay sections, in order:
+1. Hero (greeting + meta)
+2. About
+3. Stats (count-up)
+4. Experience (timeline)
+5. Selected work (project cards with 3D tilt)
+6. Stack (marquee)
+7. CTA
++ Footer (contact, socials, back-to-top)
 
 ## Development Rules
 
-Keep this project simple. Do not introduce frameworks, bundlers, package managers, or new architecture unless explicitly requested.
+Keep this project simple. Do not introduce frameworks, bundlers, package
+managers, or new architecture unless explicitly requested.
 
 Prefer minimal, direct edits:
 - HTML changes in `index.html`
 - Visual/layout changes in `style.css`
-- Interaction/i18n changes in `script.js`
+- Interaction changes in `app.js`
 
 Avoid unnecessary abstraction. This is a small static site.
 
 ## HTML Guidelines
 
 When editing `index.html`:
-- Preserve semantic section structure: `home`, `about`, `experience`, `projects`, `contact`.
-- Keep navigation anchors aligned with section IDs.
-- Add `data-i18n` for any user-facing text that must support EN/ID language toggle.
+- Preserve the landing card and the `data-overlay` experience.
+- Overlay sections carry `data-section` and an `ov-section` class. The
+  progress dots map 1:1 to these.
 - Keep accessibility basics:
-- descriptive `alt` text for images
-- `aria-label` for icon-only buttons/links
-- valid form labels
-- usable keyboard/focus behavior
+  - descriptive `alt` text for images
+  - `aria-label` for icon-only buttons/links
+  - `aria-controls` / `aria-expanded` on the "More about me" button
+  - `aria-hidden` on purely decorative nodes (`.overlay__noise`, `.ov-deco`,
+    blobs, rings, etc.)
 - Do not add inline scripts or inline styles unless there is a clear, small reason.
 
 ## CSS Guidelines
 
 When editing `style.css`:
 - Reuse existing CSS custom properties in `:root`.
-- Preserve dark visual language:
-- black/dark background
-- blue accent
-- muted secondary text
-- card/border styling
+- The two visual contexts are intentionally different:
+  - Landing (`--bg`, `--fg`, `--muted`, `--card`): light card on a soft
+    background with subtle floating blobs.
+  - Overlay (`--ov-bg`, `--ov-fg`, `--ov-muted`, `--ov-line`, `--ov-accent`,
+    `--ov-accent-2`): dark canvas with lime accent and decorative glows.
 - Keep responsive behavior intact.
-- Verify desktop and mobile breakpoints:
-- `max-width: 1024px`
-- `max-width: 768px`
-- Avoid large redesigns unless requested.
+- Verify breakpoints:
+  - `max-width: 768px`
+  - `max-width: 480px`
 - Avoid adding duplicate selectors; update existing rules when possible.
-- Keep animations performant:
-- prefer `transform` and `opacity`
-- avoid layout-heavy animation where possible
+- Keep animations performant: prefer `transform` and `opacity`. The decorative
+  glows/grid use long CSS animations — they are `will-change: transform` and
+  stay GPU-friendly.
+- Reveal mechanics:
+  - `[data-reveal]` fades + slides up; observed by IntersectionObserver.
+  - `[data-words]` cascades its child spans (word-by-word stagger) when the
+    container becomes visible. `app.js` rewrites plain text nodes into spans
+    so the CSS `body.js-ready [data-words] > *` selector catches them.
+  - With JS disabled, `body.js-ready` is never set, so everything stays visible.
 
 ## JavaScript Guidelines
 
-When editing `script.js`:
-- Keep behavior inside `DOMContentLoaded`.
-- Use vanilla JS only.
+When editing `app.js`:
+- The whole file is wrapped in an IIFE. No globals, no `DOMContentLoaded`
+  needed because the script tag uses `defer`.
 - Guard DOM access when elements may not exist.
-- Keep i18n keys synchronized:
-- every `data-i18n` key in HTML must exist in both `translations.en` and `translations.id`
-- every visible translated string should be updated through `updateLanguage`
-- Avoid global variables outside the current pattern unless needed.
+- Skip work on `prefers-reduced-motion: reduce` and on `(hover: none)`.
 - Do not add real form submission unless explicitly requested.
-- If contact form becomes real, validate input and avoid exposing secrets/client-side API keys.
-
-## i18n Rules
-
-Language support currently includes:
-- English: `translations.en`
-- Indonesian: `translations.id`
-
-When adding/changing translated content:
-- Update both languages.
-- Keep tone professional, concise, portfolio-oriented.
-- Ensure language toggle active state still works.
-- Do not leave placeholder copy in one language.
+- For real form submission, validate input and never expose secrets.
 
 ## UX And Accessibility
 
 Maintain:
-- responsive mobile header/sidebar behavior
-- smooth anchor scrolling
-- active nav state on scroll
-- readable contrast
-- usable form labels
-- hidden custom cursor on mobile
-
-Be careful with:
-- canvas animation performance
-- excessive motion
-- focus visibility
-- mobile viewport spacing
+- responsive layout at all breakpoints
+- focus visibility (the global `*:focus-visible` outline is on lime accent)
+- the "More about me" button has `aria-controls` + `aria-expanded`; the
+  overlay uses `aria-hidden` toggled on open/close
+- ESC closes the overlay; Tab focus is trapped inside it
+- the custom cursor is hidden via `(hover: none)` media query
+- the card centers via flexbox; the keyframe animation must not add a `-50%`
+  Y offset (the body, not the card, is the positioning context)
 
 ## Security Rules
 
@@ -118,14 +126,14 @@ This is a static frontend project, but still:
 There is no automated test/build command.
 
 Before finishing changes:
-- Open `index.html` in browser if possible.
+- Open `index.html` in a browser.
 - Check console for JS errors.
 - Test desktop layout.
-- Test mobile layout.
-- Test language toggle.
-- Test mobile menu open/close.
-- Test section nav links.
-- Test contact form simulation.
+- Test mobile layout (390, 480, 768 widths).
+- Test "More about me" open/close (button, ESC, focus return).
+- Test reveal, count-up, magnetic, tilt, marquee.
+- Test scroll-snap feel (proximity, not mandatory).
+- Verify `prefers-reduced-motion` still shows all content.
 - Verify no broken image/link regressions.
 
 ## Git Rules
@@ -138,11 +146,11 @@ Before finishing changes:
 
 ## Code Style
 
-Follow existing style:
 - 4-space indentation in HTML/CSS/JS.
-- Single quotes are common in JS.
+- Single quotes in JS.
 - Plain CSS, no preprocessors.
-- Clear class names.
+- Clear class names (`ov-` prefix for overlay nodes, `ov-{section}__{elem}`
+  for descendants).
 - Minimal comments; only explain non-obvious behavior.
 
 ## Change Philosophy
@@ -152,6 +160,6 @@ Best change = smallest correct change.
 Priorities:
 1. Preserve current site behavior.
 2. Keep UI responsive.
-3. Keep language toggle consistent.
+3. Keep the landing simple / overlay rich contrast.
 4. Avoid new dependencies.
 5. Keep code readable for a static-site workflow.

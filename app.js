@@ -135,27 +135,31 @@
 
     // === Magnetic "More about me" button =========================
     const more = document.querySelector('[data-more]');
-    if (more && !isTouch && !prefersReduce) {
-        const MAG = 0.35;
+    const MAG = 0.35;
+    const bindMagnetic = (el, strength = MAG) => {
+        if (!el || isTouch || prefersReduce) return;
         let rect = null;
-        const onMove = (e) => {
-            if (!rect) rect = more.getBoundingClientRect();
+        el.addEventListener('pointerenter', () => { rect = el.getBoundingClientRect(); });
+        el.addEventListener('pointermove', (e) => {
+            if (!rect) rect = el.getBoundingClientRect();
             const cx = rect.left + rect.width / 2;
             const cy = rect.top + rect.height / 2;
-            const dx = (e.clientX - cx) * MAG;
-            const dy = (e.clientY - cy) * MAG;
-            more.style.setProperty('--mx', `${dx}px`);
-            more.style.setProperty('--my', `${dy}px`);
-        };
-        const onLeave = () => {
-            more.style.setProperty('--mx', `0px`);
-            more.style.setProperty('--my', `0px`);
+            el.style.setProperty('--mx', `${(e.clientX - cx) * strength}px`);
+            el.style.setProperty('--my', `${(e.clientY - cy) * strength}px`);
+            el.style.setProperty('--px', `${e.clientX - rect.left}px`);
+            el.style.setProperty('--py', `${e.clientY - rect.top}px`);
+        });
+        el.addEventListener('pointerleave', () => {
+            el.style.setProperty('--mx', '0px');
+            el.style.setProperty('--my', '0px');
+            el.style.setProperty('--px', '50%');
+            el.style.setProperty('--py', '50%');
             rect = null;
-        };
-        more.addEventListener('pointermove', onMove);
-        more.addEventListener('pointerleave', onLeave);
-        more.addEventListener('pointerenter', () => rect = more.getBoundingClientRect());
-    }
+        });
+    };
+    bindMagnetic(more, 0.35);
+    // CTA button: magnetic on the small CTA (in addition to tilt)
+    document.querySelectorAll('[data-magnetic]').forEach((el) => bindMagnetic(el, 0.2));
 
     // === Overlay: open/close with curtain transition ============
     const overlay = document.querySelector('[data-overlay]');
@@ -165,21 +169,34 @@
 
     let lastFocus = null;
     let firstSectionRevealed = false;
+    let resetOverlayTimer = null;
+
+    const setPortalOrigin = () => {
+        if (!overlay || !moreBtn) return;
+        const rect = moreBtn.getBoundingClientRect();
+        overlay.style.setProperty('--portal-x', `${rect.left + rect.width / 2}px`);
+        overlay.style.setProperty('--portal-y', `${rect.top + rect.height / 2}px`);
+    };
 
     const revealAll = () => {
-        document.querySelectorAll('[data-reveal], [data-words]').forEach((el) => {
+        overlay?.querySelectorAll('[data-reveal], [data-words]').forEach((el) => {
             el.classList.add('is-in');
         });
-        document.querySelectorAll('[data-count]').forEach(animateCount);
+        overlay?.querySelectorAll('[data-count]').forEach(animateCount);
     };
 
     const openOverlay = () => {
         if (!overlay) return;
         lastFocus = document.activeElement;
+        setPortalOrigin();
         overlay.classList.add('is-open');
         overlay.setAttribute('aria-hidden', 'false');
         moreBtn?.setAttribute('aria-expanded', 'true');
         document.body.classList.add('ov-open');
+        if (resetOverlayTimer) {
+            clearTimeout(resetOverlayTimer);
+            resetOverlayTimer = null;
+        }
         setTimeout(() => closeBtn?.focus({ preventScroll: true }), 100);
         // Fire reveals: first section immediately, rest on scroll
         if (!firstSectionRevealed) {
@@ -190,25 +207,36 @@
 
     const closeOverlay = () => {
         if (!overlay) return;
+        setPortalOrigin();
         overlay.classList.remove('is-open');
         overlay.setAttribute('aria-hidden', 'true');
         moreBtn?.setAttribute('aria-expanded', 'false');
         document.body.classList.remove('ov-open');
-        overlay.scrollTo({ top: 0 });
-        // Reset reveals for next open
-        document.querySelectorAll('[data-reveal].is-in, [data-words].is-in').forEach((el) => {
-            el.classList.remove('is-in');
-        });
-        document.querySelectorAll('[data-count][data-counted]').forEach((el) => {
-            el.textContent = '0';
-            delete el.dataset.counted;
-        });
-        firstSectionRevealed = false;
+        // Reset after the curtain finishes closing, so content does not vanish mid-animation.
+        if (resetOverlayTimer) clearTimeout(resetOverlayTimer);
+        resetOverlayTimer = setTimeout(() => {
+            overlay.scrollTo({ top: 0 });
+            overlay.querySelectorAll('[data-reveal].is-in, [data-words].is-in').forEach((el) => {
+                el.classList.remove('is-in');
+            });
+            overlay.querySelectorAll('[data-count][data-counted]').forEach((el) => {
+                el.textContent = '0';
+                delete el.dataset.counted;
+            });
+            firstSectionRevealed = false;
+            resetOverlayTimer = null;
+        }, 1100);
         setTimeout(() => lastFocus?.focus?.({ preventScroll: true }), 50);
     };
 
     moreBtn?.addEventListener('click', openOverlay);
     closeBtn?.addEventListener('click', closeOverlay);
+
+    // "Back to top" in footer scrolls overlay to section 0 (not close).
+    overlay?.querySelector('[data-scroll-top]')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        sections[0]?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
 
     addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && overlay?.classList.contains('is-open')) closeOverlay();
@@ -257,6 +285,11 @@
         if (el.dataset.counted) return;
         el.dataset.counted = '1';
         const target = parseInt(el.dataset.count, 10) || 0;
+        // Reduced-motion: jump straight to the final value, no animation.
+        if (prefersReduce) {
+            el.textContent = String(target);
+            return;
+        }
         const dur = 1400;
         const start = performance.now();
         const tick = (t) => {
@@ -313,13 +346,50 @@
         el.style.setProperty('--my', '50%');
     });
 
+    // === Overlay decorative parallax =============================
+    // Translate the deco layers based on overlay scroll position so
+    // the background feels alive. transform-only, no layout cost.
+    const deco = overlay?.querySelector('.ov-deco');
+    if (deco && overlay && !prefersReduce) {
+        const glows = deco.querySelectorAll('.ov-glow');
+        const rings = deco.querySelectorAll('.ov-ring');
+        const grid = deco.querySelector('.ov-grid');
+        let decoRaf = null;
+        const applyDeco = () => {
+            const max = overlay.scrollHeight - overlay.clientHeight || 1;
+            const p = Math.min(Math.max(overlay.scrollTop / max, 0), 1);
+            overlay.style.setProperty('--ov-scroll', p.toFixed(4));
+            glows.forEach((g, i) => {
+                const k = (i + 1) * 60;
+                g.style.translate = `0 ${p * k}px`;
+            });
+            rings.forEach((r, i) => {
+                r.style.translate = `0 ${p * (i === 0 ? 120 : -80)}px`;
+            });
+            if (grid) grid.style.opacity = String(0.5 + p * 0.3);
+            decoRaf = null;
+        };
+        overlay.addEventListener('scroll', () => {
+            if (decoRaf) return;
+            decoRaf = requestAnimationFrame(applyDeco);
+        }, { passive: true });
+        applyDeco();
+    }
+
+    // === Footer year stamp =======================================
+    const yearEl = document.querySelector('[data-year]');
+    if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
     // === Magnetic scroll — progress dots =========================
     const sections = [...document.querySelectorAll('[data-section]')];
     const dots = [...document.querySelectorAll('[data-progress-dot]')];
     if (sections.length === dots.length && sections.length) {
         const setActive = (idx) => {
             dots.forEach((d, i) => d.classList.toggle('is-in', i === idx));
+            sections.forEach((s, i) => s.classList.toggle('is-active', i === idx));
+            overlay?.style.setProperty('--active-section', String(idx));
         };
+        setActive(0);
         // Track which section is most visible. With mandatory scroll-snap
         // each section fills the viewport when snapped.
         const sectionObs = new IntersectionObserver((entries) => {
@@ -340,33 +410,10 @@
         });
     }
 
-    // === Eased overlay scroll (wheel only) =======================
-    // Lerp-driven scroll on .overlay when wheel is used. Touch and
-    // prefers-reduced-motion both keep native behavior.
-    if (overlay && !prefersReduce && !isTouch) {
-        const SCROLL_EASE = 0.1;
-        let targetScroll = overlay.scrollTop;
-        let currentScroll = overlay.scrollTop;
-        let lerpRaf = null;
-        const tick = () => {
-            const diff = targetScroll - currentScroll;
-            if (Math.abs(diff) < 0.5) {
-                currentScroll = targetScroll;
-                overlay.scrollTop = currentScroll;
-                lerpRaf = null;
-                return;
-            }
-            currentScroll += diff * SCROLL_EASE;
-            overlay.scrollTop = currentScroll;
-            lerpRaf = requestAnimationFrame(tick);
-        };
-        overlay.addEventListener('wheel', (e) => {
-            e.preventDefault();
-            const max = overlay.scrollHeight - overlay.clientHeight;
-            targetScroll = Math.max(0, Math.min(max, targetScroll + e.deltaY));
-            if (!lerpRaf) lerpRaf = requestAnimationFrame(tick);
-        }, { passive: false });
-    }
+    // === Overlay scroll =========================================
+    // Native scrolling is used intentionally: a JS lerp ("eased") scroll
+    // fights the browser's scroll-snap and feels laggy on trackpads.
+    // CSS `scroll-behavior: smooth` + proximity snap handle smoothness.
 
     // === Name: text scramble on hover ============================
     const nameEl = document.querySelector('.name');

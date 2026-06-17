@@ -1,8 +1,37 @@
 # Design System — Color Palette
 
-## Overview
+> **Note:** This document keeps the alternative teal/orange palette for reference.
+> The palette currently active in `style.css` is **Dark + Lime** (see the
+> "Active Palette" section below). Visual decision: a minimal light landing with
+> a dark, electric-lime overlay for contrast.
 
-Palet warna ini menggabungkan nuansa netral modern dengan aksen teal yang tenang dan oranye yang energik. Cocok untuk dashboard, aplikasi SaaS, sistem internal, maupun website modern.
+## Active Palette (in use)
+
+| Token | Hex | Usage |
+|---------|---------|--------|
+| `--bg` | `#fafafa` | Landing background |
+| `--card` | `#ffffff` | Landing card surface |
+| `--fg` | `#0a0a0a` | Landing text |
+| `--muted` | `#6b6b6b` | Landing secondary text |
+| `--ov-bg` | `#0a0a0a` | Overlay background |
+| `--ov-fg` | `#f5f5f5` | Overlay text |
+| `--ov-muted` | `#888` | Overlay secondary text |
+| `--ov-accent` | `#c8ff00` | Lime accent (CTA, active dot, focus) |
+| `--ov-accent-2` | `#ff5b3a` | Orange accent (decoration, gradients) |
+| `--ov-line` | `rgba(255,255,255,0.08)` | Hairline dividers |
+
+Used ratio:
+- 55% → dark overlay
+- 25% → light landing
+- 12% → lime accent
+- 8% → orange accent
+
+---
+
+## Alt Palette (teal/orange — legacy reference)
+
+This palette combines modern neutrals with calm teal and energetic orange accents.
+It fits dashboards, SaaS apps, internal systems, and modern websites.
 
 ---
 
@@ -10,9 +39,9 @@ Palet warna ini menggabungkan nuansa netral modern dengan aksen teal yang tenang
 
 | Token | Hex | Preview | Usage |
 |---------|---------|---------|---------|
-| `gray-50` | `#F5F5F5` | ⬜ | Background utama |
+| `gray-50` | `#F5F5F5` | ⬜ | Main background |
 | `primary-500` | `#76ABAE` | 🟦 | Primary action, link, highlight |
-| `neutral-900` | `#303841` | ⬛ | Text utama, navbar, footer |
+| `neutral-900` | `#303841` | ⬛ | Main text, navbar, footer |
 | `accent-500` | `#FF5722` | 🟧 | CTA, alert, emphasis |
 
 ---
@@ -25,7 +54,7 @@ Palet warna ini menggabungkan nuansa netral modern dengan aksen teal yang tenang
 --background: #F5F5F5;
 ```
 
-Digunakan untuk:
+Used for:
 
 - Page background
 - Card container
@@ -37,7 +66,7 @@ Digunakan untuk:
 --primary: #76ABAE;
 ```
 
-Digunakan untuk:
+Used for:
 
 - Button primary
 - Active menu
@@ -50,7 +79,7 @@ Digunakan untuk:
 --neutral: #303841;
 ```
 
-Digunakan untuk:
+Used for:
 
 - Heading
 - Body text
@@ -63,12 +92,12 @@ Digunakan untuk:
 --accent: #FF5722;
 ```
 
-Digunakan untuk:
+Used for:
 
 - Call-to-action
 - Warning indicator
-- Badge penting
-- Hover state tertentu
+- Important badges
+- Specific hover states
 
 ---
 

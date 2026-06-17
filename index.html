@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Chandra Bachtiar — Senior Fullstack Developer di Coding Collective Indonesia, Yogyakarta.">
+    <meta name="description" content="Chandra Bachtiar — Senior Fullstack Developer at Coding Collective Indonesia, Yogyakarta.">
     <meta name="theme-color" content="#0a0a0a">
     <title>Chandra Bachtiar — Senior Fullstack Developer</title>
     <link rel="icon" type="image/png" href="image.png">
@@ -66,10 +66,12 @@
             <source type="image/webp" srcset="image.webp 1x, image@2x.webp 2x">
             <img
                 class="avatar"
-                src="image.png"
-                alt="Foto Chandra Bachtiar"
+                src="image.webp"
+                alt="Portrait of Chandra Bachtiar"
                 width="140"
                 height="140"
+                decoding="async"
+                fetchpriority="high"
             >
         </picture>
 
@@ -78,7 +80,7 @@
         <p class="org" data-reveal>At Coding Collective Indonesia</p>
         <p class="location" data-reveal>Yogyakarta - Indonesia</p>
 
-        <nav class="links" aria-label="Tautan profil dan kontak" data-reveal>
+        <nav class="links" aria-label="Profile and contact links" data-reveal>
             <a href="https://linkedin.com/in/chandra-bachtiar" target="_blank" rel="noreferrer noopener" aria-label="LinkedIn">
                 <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
                     <path fill="currentColor" d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/>
@@ -107,7 +109,11 @@
             <span class="more__icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" width="16" height="16"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 5l7 7-7 7"/></svg>
             </span>
-            <span class="more__sheen" aria-hidden="true"></span>
+            <span class="more__curiosity" aria-hidden="true">
+                <span>?</span>
+                <span>?</span>
+                <span>?</span>
+            </span>
         </button>
     </main>
 
@@ -115,10 +121,26 @@
     <section id="about-overlay" class="overlay" aria-hidden="true" data-overlay>
         <div class="overlay__noise" aria-hidden="true"></div>
 
+        <!-- Decorative layers (parallax, grid, glow) -->
+        <div class="ov-deco" aria-hidden="true">
+            <div class="ov-grid"></div>
+            <div class="ov-glow ov-glow--a"></div>
+            <div class="ov-glow ov-glow--b"></div>
+            <div class="ov-glow ov-glow--c"></div>
+            <span class="ov-ring ov-ring--1"></span>
+            <span class="ov-ring ov-ring--2"></span>
+        </div>
+
+        <div class="ov-hud" aria-hidden="true">
+            <span class="ov-hud__line"></span>
+            <span class="ov-hud__copy">Scroll dossier</span>
+            <span class="ov-hud__meter"><span></span></span>
+        </div>
+
         <!-- Top bar -->
         <header class="ov-top">
             <span class="ov-top__brand" data-reveal>CB / portfolio</span>
-            <button class="ov-close" type="button" aria-label="Tutup" data-close>
+            <button class="ov-close" type="button" aria-label="Close" data-close>
                 <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></svg>
                 <span>Close</span>
             </button>
@@ -126,6 +148,12 @@
 
         <!-- Section 1 — Hero -->
         <section class="ov-section ov-hero" data-section>
+            <span class="ov-hero__index" aria-hidden="true">01</span>
+            <div class="ov-hero__signal" aria-hidden="true">
+                <span>Build</span>
+                <span>Ship</span>
+                <span>Scale</span>
+            </div>
             <p class="ov-eyebrow" data-reveal>01 — Hello</p>
             <h2 class="ov-hero__title" data-words>
                 <span>I build</span>
@@ -151,6 +179,11 @@
                     <span class="ov-meta__v ov-meta__v--dot">Open to chat</span>
                 </div>
             </div>
+            <div class="ov-hero__terminal" aria-hidden="true">
+                <span>$ npm run ship</span>
+                <span>build passed</span>
+                <span>deploy calm</span>
+            </div>
             <div class="ov-scroll" aria-hidden="true">
                 <span>Scroll</span>
                 <span class="ov-scroll__line"></span>
@@ -160,71 +193,105 @@
         <!-- Section 2 — About -->
         <section class="ov-section ov-about" data-section>
             <p class="ov-eyebrow" data-reveal>02 — About</p>
-            <p class="ov-about__text" data-words>
-                <span>Saya</span><span>fullstack</span><span>developer</span><span>yang</span><span>suka</span><span>bikin</span><span>sesuatu</span><span>yang</span><span>jalan</span><span>—</span><span>bukan</span><span>yang</span><span>cuma</span><span>keliatan</span><span>cantik.</span>
-                <span>Fokus</span><span>di</span><span>Next.js,</span><span>TypeScript,</span><span>dan</span><span>arsitektur</span><span>yang</span><span>bisa</span><span>di-scale</span><span>tanpa</span><span>drama.</span>
-                <span>Nganggur</span><span>kalau</span><span>gak</span><span>nulis</span><span>kode</span><span>atau</span><span>maintain</span><span>sesuatu</span><span>yang</span><span>orang</span><span>lain</span><span>andelin.</span>
-            </p>
+            <div class="ov-about__grid">
+                <p class="ov-about__text" data-words>
+                    <span>I</span><span>build</span><span>fullstack</span><span>products</span><span>that</span><span>work</span><span>in</span><span>the</span><span>real</span><span>world</span><span>—</span><span>not</span><span>just</span><span>things</span><span>that</span><span>look</span><span>pretty.</span>
+                    <span>Focused</span><span>on</span><span>Next.js,</span><span>TypeScript,</span><span>and</span><span>architecture</span><span>that</span><span>can</span><span>scale</span><span>without</span><span>drama.</span>
+                    <span>Usually</span><span>writing</span><span>code</span><span>or</span><span>maintaining</span><span>systems</span><span>people</span><span>actually</span><span>depend</span><span>on.</span>
+                </p>
+                <div class="ov-about__principles" data-reveal>
+                    <span>Reliable systems</span>
+                    <span>Clear architecture</span>
+                    <span>Calm delivery</span>
+                </div>
+            </div>
         </section>
 
         <!-- Section 3 — Stats -->
         <section class="ov-section ov-stats" data-section>
             <p class="ov-eyebrow" data-reveal>03 — Numbers</p>
+            <p class="ov-stats__caption" data-reveal>Production-minded, shipping-oriented.</p>
             <div class="ov-stats__grid">
                 <div class="ov-stat" data-reveal>
+                    <span class="ov-stat__icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" width="18" height="18"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 2M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
+                    </span>
                     <span class="ov-stat__n" data-count="6">0</span>
                     <span class="ov-stat__s">+</span>
                     <span class="ov-stat__l">Years coding</span>
+                    <span class="ov-stat__spark" aria-hidden="true"></span>
+                    <span class="ov-stat__bar" aria-hidden="true"></span>
                 </div>
                 <div class="ov-stat" data-reveal>
+                    <span class="ov-stat__icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" width="18" height="18"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M3 7l9-4 9 4-9 4-9-4Zm0 5 9 4 9-4M3 17l9 4 9-4"/></svg>
+                    </span>
                     <span class="ov-stat__n" data-count="40">0</span>
                     <span class="ov-stat__s">+</span>
                     <span class="ov-stat__l">Projects shipped</span>
+                    <span class="ov-stat__spark" aria-hidden="true"></span>
+                    <span class="ov-stat__bar" aria-hidden="true"></span>
                 </div>
                 <div class="ov-stat" data-reveal>
+                    <span class="ov-stat__icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" width="18" height="18"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h10M4 18h16"/></svg>
+                    </span>
                     <span class="ov-stat__n" data-count="15">0</span>
                     <span class="ov-stat__s">+</span>
                     <span class="ov-stat__l">Stacks in belt</span>
+                    <span class="ov-stat__spark" aria-hidden="true"></span>
+                    <span class="ov-stat__bar" aria-hidden="true"></span>
                 </div>
                 <div class="ov-stat" data-reveal>
+                    <span class="ov-stat__icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" width="18" height="18"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M3 10c4 0 5-6 9-6s5 6 9 6-5 6-9 6-5-6-9-6Z"/></svg>
+                    </span>
                     <span class="ov-stat__n" data-count="99">0</span>
                     <span class="ov-stat__s">%</span>
                     <span class="ov-stat__l">Coffee fueled</span>
+                    <span class="ov-stat__spark" aria-hidden="true"></span>
+                    <span class="ov-stat__bar" aria-hidden="true"></span>
                 </div>
             </div>
         </section>
 
         <!-- Section 4 — Experience timeline -->
         <section class="ov-section ov-exp" data-section>
+            <span class="ov-exp__ghost" aria-hidden="true">Experience</span>
             <p class="ov-eyebrow" data-reveal>04 — Experience</p>
             <ol class="ov-timeline">
-                <li class="ov-tl__item" data-reveal>
+                <span class="ov-timeline__pulse" aria-hidden="true"></span>
+                <li class="ov-tl__item ov-tl__item--current" data-reveal>
                     <span class="ov-tl__dot"></span>
+                    <span class="ov-tl__idx">01</span>
                     <span class="ov-tl__when">2024 — Now</span>
                     <h3 class="ov-tl__role">Senior Fullstack Developer</h3>
                     <p class="ov-tl__where">Coding Collective Indonesia</p>
-                    <p class="ov-tl__what">Lead engineer, arsitektur sistem, code review, dan nge-ship produk klien dari 0 ke production.</p>
+                    <p class="ov-tl__what">Lead engineer for system architecture, code review, and shipping client products from zero to production.</p>
                 </li>
                 <li class="ov-tl__item" data-reveal>
                     <span class="ov-tl__dot"></span>
+                    <span class="ov-tl__idx">02</span>
                     <span class="ov-tl__when">2026 — Now</span>
                     <h3 class="ov-tl__role">Founder</h3>
                     <p class="ov-tl__where">Naowledge — naowledge.app</p>
-                    <p class="ov-tl__what">Bikin software house. Next.js + Cloudflare Pages. Bilingual team. Jalan.</p>
+                    <p class="ov-tl__what">Building a software house with Next.js + Cloudflare Pages and a bilingual team.</p>
                 </li>
                 <li class="ov-tl__item" data-reveal>
                     <span class="ov-tl__dot"></span>
+                    <span class="ov-tl__idx">03</span>
                     <span class="ov-tl__when">2022 — 2024</span>
                     <h3 class="ov-tl__role">PMO</h3>
                     <p class="ov-tl__where">Coding Collective Indonesia</p>
-                    <p class="ov-tl__what">Bridge antara bisnis dan engineering. Bikin proses gak chaos.</p>
+                    <p class="ov-tl__what">Bridged business and engineering so product delivery stayed structured, not chaotic.</p>
                 </li>
                 <li class="ov-tl__item" data-reveal>
                     <span class="ov-tl__dot"></span>
+                    <span class="ov-tl__idx">04</span>
                     <span class="ov-tl__when">2019 — 2022</span>
                     <h3 class="ov-tl__role">Fullstack Developer</h3>
                     <p class="ov-tl__where">Various</p>
-                    <p class="ov-tl__what">Bikin web app, API, dan belajar banyak hal yang gak diajarin di kampus.</p>
+                    <p class="ov-tl__what">Built web apps, APIs, and learned the production lessons campus never teaches.</p>
                 </li>
             </ol>
         </section>
@@ -233,29 +300,49 @@
         <section class="ov-section ov-proj" data-section>
             <p class="ov-eyebrow" data-reveal>05 — Selected work</p>
             <div class="ov-proj__grid">
-                <article class="ov-card" data-reveal data-tilt>
+                <article class="ov-card ov-card--wide" data-reveal data-tilt>
+                    <span class="ov-card__window" aria-hidden="true"></span>
                     <span class="ov-card__tag">SaaS</span>
                     <h3 class="ov-card__title">Naowledge</h3>
-                    <p class="ov-card__desc">Software house bilingual. Next.js + Cloudflare. Dari 0 ke launch.</p>
+                    <p class="ov-card__desc">Bilingual software house. Next.js + Cloudflare. From zero to launch.</p>
+                    <div class="ov-card__meta" aria-hidden="true"><span>Next.js</span><span>Cloudflare</span><span>Launch</span></div>
                     <span class="ov-card__foot">naowledge.app</span>
+                    <span class="ov-card__arrow" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" width="18" height="18"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 5l7 7-7 7"/></svg>
+                    </span>
                 </article>
                 <article class="ov-card" data-reveal data-tilt>
+                    <span class="ov-card__window" aria-hidden="true"></span>
                     <span class="ov-card__tag">Product</span>
                     <h3 class="ov-card__title">Food Merchant</h3>
                     <p class="ov-card__desc">POS + stock management. Realtime, low-stock alert, order pipeline.</p>
+                    <div class="ov-card__meta" aria-hidden="true"><span>Realtime</span><span>Stock</span></div>
                     <span class="ov-card__foot">internal</span>
+                    <span class="ov-card__arrow" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" width="18" height="18"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 5l7 7-7 7"/></svg>
+                    </span>
                 </article>
                 <article class="ov-card" data-reveal data-tilt>
+                    <span class="ov-card__window" aria-hidden="true"></span>
                     <span class="ov-card__tag">Site</span>
                     <h3 class="ov-card__title">This page</h3>
                     <p class="ov-card__desc">Portfolio. No framework, no build step. Pure HTML + CSS + a sprinkle of JS.</p>
+                    <div class="ov-card__meta" aria-hidden="true"><span>HTML</span><span>CSS</span><span>JS</span></div>
                     <span class="ov-card__foot">chand.my.id</span>
+                    <span class="ov-card__arrow" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" width="18" height="18"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 5l7 7-7 7"/></svg>
+                    </span>
                 </article>
-                <article class="ov-card" data-reveal data-tilt>
+                <article class="ov-card ov-card--wide" data-reveal data-tilt>
+                    <span class="ov-card__window" aria-hidden="true"></span>
                     <span class="ov-card__tag">AI</span>
                     <h3 class="ov-card__title">Pipeline Agents</h3>
                     <p class="ov-card__desc">Multi-agent cron pipeline. Senior dev → tech-lead review → auto merge.</p>
+                    <div class="ov-card__meta" aria-hidden="true"><span>Agents</span><span>Cron</span><span>Review</span></div>
                     <span class="ov-card__foot">internal</span>
+                    <span class="ov-card__arrow" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" width="18" height="18"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 5l7 7-7 7"/></svg>
+                    </span>
                 </article>
             </div>
         </section>
@@ -309,6 +396,17 @@
                     <span>Notion</span><span>•</span>
                 </div>
             </div>
+            <div class="ov-stack__clusters" data-reveal>
+                <div><b>Frontend</b><span>React</span><span>Next.js</span><span>TypeScript</span></div>
+                <div><b>Backend</b><span>Node.js</span><span>PostgreSQL</span><span>Prisma</span></div>
+                <div><b>Infra</b><span>Cloudflare</span><span>Docker</span><span>GitHub Actions</span></div>
+            </div>
+            <div class="ov-stack__orbit" aria-hidden="true">
+                <span>React</span>
+                <span>Node</span>
+                <span>DB</span>
+                <span>Edge</span>
+            </div>
         </section>
 
         <!-- Section 7 — CTA -->
@@ -317,12 +415,31 @@
             <h2 class="ov-cta__h" data-words>
                 <span>Got</span><span>an</span><span>idea?</span>
             </h2>
-            <a class="ov-cta__btn" href="mailto:chandrabahtiar25@gmail.com" data-tilt>
+            <div class="ov-cta__panel" data-reveal>
+                <span>Available for</span>
+                <b>Architecture, product builds, and code reviews</b>
+            </div>
+            <div class="ov-cta__signal" aria-hidden="true">
+                <span></span><span></span><span></span>
+            </div>
+            <a class="ov-cta__btn" href="mailto:chandrabahtiar25@gmail.com">
                 <span>Drop a line</span>
                 <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 5l7 7-7 7"/></svg>
-                <span class="ov-cta__pulse" aria-hidden="true"></span>
             </a>
         </section>
+
+        <!-- Footer -->
+        <footer class="ov-foot" data-reveal>
+            <div class="ov-foot__row">
+                <a href="mailto:chandrabahtiar25@gmail.com" class="ov-foot__link">chandrabahtiar25@gmail.com</a>
+                <nav class="ov-foot__nav" aria-label="Footer links">
+                    <a href="https://linkedin.com/in/chandra-bachtiar" target="_blank" rel="noreferrer noopener">LinkedIn</a>
+                    <a href="https://github.com/chandra-bachtiar" target="_blank" rel="noreferrer noopener">GitHub</a>
+                    <a href="#about-overlay" data-scroll-top>Back to top</a>
+                </nav>
+                <span class="ov-foot__year">© <span data-year>2026</span> Chandra Bachtiar</span>
+            </div>
+        </footer>
     </section>
 
     <!-- Magnetic scroll progress indicator -->
