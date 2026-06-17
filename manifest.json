@@ -1,0 +1,23 @@
+{
+  "name": "Chandra Bachtiar — Senior Fullstack Developer",
+  "short_name": "Chandra Bachtiar",
+  "description": "Senior Fullstack Developer at Coding Collective Indonesia. Building calm, fast, and honest interfaces.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#0a0a0a",
+  "icons": [
+    {
+      "src": "/image.webp",
+      "sizes": "192x192",
+      "type": "image/webp",
+      "purpose": "any"
+    },
+    {
+      "src": "/image@2x.webp",
+      "sizes": "512x512",
+      "type": "image/webp",
+      "purpose": "any"
+    }
+  ]
+}
