@@ -35,7 +35,10 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Chandra Bachtiar">
     <link rel="apple-touch-icon" href="/image.webp">
-    <link rel="stylesheet" href="style.css?v=4da64d4">
+    <link rel="preload" as="style" href="style.css?v=28cbbd9">
+    <link rel="preload" as="script" href="app.js?v=28cbbd9">
+    <link rel="preload" as="image" href="image.webp" type="image/webp" fetchpriority="high">
+    <link rel="stylesheet" href="style.css?v=28cbbd9">
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -496,7 +499,7 @@
     <!-- Copy-email toast -->
     <div class="toast" data-toast role="status" aria-live="polite" aria-hidden="true">Copied!</div>
 
-    <script src="app.js?v=4da64d4" defer></script>
+    <script src="app.js?v=28cbbd9" defer></script>
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
