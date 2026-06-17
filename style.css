@@ -864,6 +864,8 @@ body.ov-open .ov-progress {
     scroll-snap-align: start;
     scroll-snap-stop: normal;
     isolation: isolate;
+    content-visibility: auto;
+    contain-intrinsic-size: 100vh;
 }
 .ov-section::before {
     content: "";
