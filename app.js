@@ -185,23 +185,48 @@
         overlay?.querySelectorAll('[data-count]').forEach(animateCount);
     };
 
+    // === Card dissolve (open) / reform (close) =====================
+    const card = document.querySelector('.card');
+    let dissolveTimer = null;
+
+    const startDissolve = (reforming) => {
+        if (!card) return;
+        // Clear prior state and force reflow so the animation restarts cleanly
+        card.classList.remove('is-dissolving', 'is-reforming', 'is-gone');
+        void card.offsetWidth;
+        card.classList.add(reforming ? 'is-reforming' : 'is-dissolving');
+        if (dissolveTimer) clearTimeout(dissolveTimer);
+        dissolveTimer = setTimeout(() => {
+            if (reforming) {
+                card.classList.remove('is-reforming');
+            } else {
+                card.classList.add('is-gone');
+            }
+            dissolveTimer = null;
+        }, 950);
+    };
+
     const openOverlay = () => {
         if (!overlay) return;
         lastFocus = document.activeElement;
         setPortalOrigin();
-        overlay.classList.add('is-open');
-        overlay.setAttribute('aria-hidden', 'false');
-        moreBtn?.setAttribute('aria-expanded', 'true');
-        document.body.classList.add('ov-open');
+        // Start the card dissolve first; open the overlay mid-dissolve for visual overlap.
+        startDissolve(false);
+        setTimeout(() => {
+            overlay.classList.add('is-open');
+            overlay.setAttribute('aria-hidden', 'false');
+            moreBtn?.setAttribute('aria-expanded', 'true');
+            document.body.classList.add('ov-open');
+        }, 280);
         if (resetOverlayTimer) {
             clearTimeout(resetOverlayTimer);
             resetOverlayTimer = null;
         }
-        setTimeout(() => closeBtn?.focus({ preventScroll: true }), 100);
+        setTimeout(() => closeBtn?.focus({ preventScroll: true }), 1000);
         // Fire reveals: first section immediately, rest on scroll
         if (!firstSectionRevealed) {
             firstSectionRevealed = true;
-            setTimeout(revealAll, 500);
+            setTimeout(revealAll, 1300);
         }
     };
 
@@ -212,6 +237,8 @@
         overlay.setAttribute('aria-hidden', 'true');
         moreBtn?.setAttribute('aria-expanded', 'false');
         document.body.classList.remove('ov-open');
+        // Reform the card while the curtain closes.
+        startDissolve(true);
         // Reset after the curtain finishes closing, so content does not vanish mid-animation.
         if (resetOverlayTimer) clearTimeout(resetOverlayTimer);
         resetOverlayTimer = setTimeout(() => {
