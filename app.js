@@ -7,6 +7,16 @@
     const prefersReduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
     const isTouch = matchMedia('(hover: none)').matches;
 
+    // Named constants for tunable parameters
+    const CURSOR_DOT_LERP = 0.6;
+    const CURSOR_RING_LERP = 0.18;
+    const BLOB_K_BASE = 0.025;
+    const BLOB_K_STEP = 0.012;
+    const MAG_BUTTON = 0.35;
+    const MAG_CTA = 0.2;
+    const TILT_RX_MAX = 8;
+    const TILT_RY_MAX = 12;
+
     // Small linear interpolation. Used by the overlay scroll lerp
     // (and available to other eased animations if needed later).
     const lerp = (a, b, t) => a + (b - a) * t;
@@ -101,11 +111,11 @@
         });
 
         const tick = () => {
-            dotPos.x += (mouse.x - dotPos.x) * 0.6;
-            dotPos.y += (mouse.y - dotPos.y) * 0.6;
+            dotPos.x += (mouse.x - dotPos.x) * CURSOR_DOT_LERP;
+            dotPos.y += (mouse.y - dotPos.y) * CURSOR_DOT_LERP;
             dot.style.transform = `translate(${dotPos.x}px, ${dotPos.y}px) translate(-50%, -50%)`;
-            ringPos.x += (mouse.x - ringPos.x) * 0.18;
-            ringPos.y += (mouse.y - ringPos.y) * 0.18;
+            ringPos.x += (mouse.x - ringPos.x) * CURSOR_RING_LERP;
+            ringPos.y += (mouse.y - ringPos.y) * CURSOR_RING_LERP;
             ring.style.transform = `translate(${ringPos.x}px, ${ringPos.y}px) translate(-50%, -50%)`;
             requestAnimationFrame(tick);
         };
@@ -125,7 +135,7 @@
         }, { passive: true });
         const tickBlobs = () => {
             blobs.forEach((b, i) => {
-                const k = 0.025 + i * 0.012;
+                const k = BLOB_K_BASE + i * BLOB_K_STEP;
                 const tx = blobMouse.x * (40 + i * 30);
                 const ty = blobMouse.y * (40 + i * 30);
                 blobPos[i].x += (tx - blobPos[i].x) * k;
@@ -139,8 +149,7 @@
 
     // === Magnetic "More about me" button =========================
     const more = document.querySelector('[data-more]');
-    const MAG = 0.35;
-    const bindMagnetic = (el, strength = MAG) => {
+    const bindMagnetic = (el, strength = MAG_BUTTON) => {
         if (!el || isTouch || prefersReduce) return;
         let rect = null;
         el.addEventListener('pointerenter', () => { rect = el.getBoundingClientRect(); });
@@ -161,9 +170,9 @@
             rect = null;
         });
     };
-    bindMagnetic(more, 0.35);
+    bindMagnetic(more, MAG_BUTTON);
     // CTA button: magnetic on the small CTA (in addition to tilt)
-    document.querySelectorAll('[data-magnetic]').forEach((el) => bindMagnetic(el, 0.2));
+    document.querySelectorAll('[data-magnetic]').forEach((el) => bindMagnetic(el, MAG_CTA));
 
     // === Overlay: open/close with curtain transition ============
     const overlay = document.querySelector('[data-overlay]');
@@ -359,8 +368,8 @@
                 const rect = el.getBoundingClientRect();
                 const x = (e.clientX - rect.left) / rect.width;
                 const y = (e.clientY - rect.top) / rect.height;
-                const rx = (0.5 - y) * 8;
-                const ry = (x - 0.5) * 12;
+                const rx = (0.5 - y) * TILT_RX_MAX;
+                const ry = (x - 0.5) * TILT_RY_MAX;
                 cancelAnimationFrame(raf);
                 raf = requestAnimationFrame(() => {
                     el.style.setProperty('--rx', `${rx}deg`);
