@@ -420,7 +420,10 @@
     const dots = [...document.querySelectorAll('[data-progress-dot]')];
     if (sections.length === dots.length && sections.length) {
         const setActive = (idx) => {
-            dots.forEach((d, i) => d.classList.toggle('is-in', i === idx));
+            dots.forEach((d, i) => {
+                d.classList.toggle('is-in', i === idx);
+                d.setAttribute('aria-current', i === idx ? 'true' : 'false');
+            });
             sections.forEach((s, i) => s.classList.toggle('is-active', i === idx));
             overlay?.style.setProperty('--active-section', String(idx));
         };
