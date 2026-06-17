@@ -7,6 +7,10 @@
     const prefersReduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
     const isTouch = matchMedia('(hover: none)').matches;
 
+    // Small linear interpolation. Used by the overlay scroll lerp
+    // (and available to other eased animations if needed later).
+    const lerp = (a, b, t) => a + (b - a) * t;
+
     // Mark JS as ready so CSS can hide [data-reveal] / [data-words] > *
     // (no-JS users get visible content as a fallback).
     if (!prefersReduce) document.body.classList.add('js-ready');
@@ -448,10 +452,44 @@
         });
     }
 
-    // === Overlay scroll =========================================
-    // Native scrolling is used intentionally: a JS lerp ("eased") scroll
-    // fights the browser's scroll-snap and feels laggy on trackpads.
-    // CSS `scroll-behavior: smooth` + proximity snap handle smoothness.
+    // === Overlay scroll lerp ====================================
+    // Intercept wheel only and lerp currentScroll toward targetScroll
+    // at 0.1/frame — iOS-like weighted feel, ~10 frames to catch up.
+    // Touch scroll is NOT intercepted: mobile keeps native momentum.
+    // Reduced-motion users fall back to the browser's native scroll.
+    if (overlay && !prefersReduce) {
+        let currentScroll = overlay.scrollTop;
+        let targetScroll = currentScroll;
+        let lerpRaf = null;
+
+        const clampScroll = (v) => {
+            const max = overlay.scrollHeight - overlay.clientHeight;
+            return Math.min(Math.max(v, 0), max);
+        };
+
+        const step = () => {
+            targetScroll = clampScroll(targetScroll);
+            currentScroll = lerp(currentScroll, targetScroll, 0.1);
+            // Snap when close enough — avoids burning frames at rest.
+            if (Math.abs(targetScroll - currentScroll) < 0.5) {
+                currentScroll = targetScroll;
+                overlay.scrollTop = currentScroll;
+                lerpRaf = null;
+                return;
+            }
+            overlay.scrollTop = currentScroll;
+            lerpRaf = requestAnimationFrame(step);
+        };
+
+        overlay.addEventListener('wheel', (e) => {
+            // Skip when the event can't be cancelled (e.g. synthetic)
+            // or the overlay isn't scrollable right now.
+            if (!e.cancelable) return;
+            e.preventDefault();
+            targetScroll = clampScroll(targetScroll + e.deltaY);
+            if (!lerpRaf) lerpRaf = requestAnimationFrame(step);
+        }, { passive: false });
+    }
 
     // === Name: text scramble on hover ============================
     const nameEl = document.querySelector('.name');
