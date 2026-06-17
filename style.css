@@ -2212,3 +2212,20 @@ body.js-ready [data-words].is-in > * {
     }
     [data-reveal], [data-words] > * { opacity: 1; transform: none; }
 }
+
+/* === Konami / 7-tap party easter egg ===========================
+   body.party is added by app.js; CSS does the visuals only. */
+@media (prefers-reduced-motion: no-preference) {
+    body.party .overlay,
+    body.party .card {
+        animation: party-hue 2s linear infinite;
+    }
+    body.party,
+    body.party * {
+        cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24'><circle cx='12' cy='12' r='5' fill='%23c8ff00'/></svg>") 12 12, auto;
+    }
+}
+@keyframes party-hue {
+    0%   { filter: hue-rotate(0deg); }
+    100% { filter: hue-rotate(360deg); }
+}

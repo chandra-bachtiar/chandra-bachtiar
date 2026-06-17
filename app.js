@@ -628,4 +628,48 @@
             });
         });
     }
+
+    // === Konami easter egg =======================================
+    // ↑↑↓↓←→←→BA toggles body.party (hue-rotate + rainbow cursor).
+    // On touch: 7 taps on the avatar within 3s triggers the same.
+    // Skipped entirely for prefers-reduced-motion.
+    if (!prefersReduce) {
+        const KONAMI = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown',
+                        'ArrowLeft','ArrowRight','ArrowLeft','ArrowRight',
+                        'b','a'];
+        let keys = [];
+        let avatarTaps = [];
+        const toggleParty = () => {
+            document.body.classList.toggle('party');
+        };
+        window.addEventListener('keydown', (ev) => {
+            const k = ev.key.length === 1 ? ev.key.toLowerCase() : ev.key;
+            keys.push(k);
+            if (keys.length > KONAMI.length) keys.shift();
+            if (keys.join(',') === KONAMI.join(',')) {
+                keys = [];
+                toggleParty();
+            }
+        });
+        // Click anywhere (after activation) dismisses party mode.
+        window.addEventListener('click', (ev) => {
+            if (!document.body.classList.contains('party')) return;
+            // Ignore the initial triggering click on the avatar.
+            if (ev.target.closest('.avatar') && avatarTaps.length) return;
+            document.body.classList.remove('party');
+        });
+        // 7-tap avatar within 3s = mobile Konami.
+        const avatar = document.querySelector('.avatar');
+        if (avatar) {
+            avatar.addEventListener('click', () => {
+                const now = Date.now();
+                avatarTaps = avatarTaps.filter((t) => now - t < 3000);
+                avatarTaps.push(now);
+                if (avatarTaps.length >= 7) {
+                    avatarTaps = [];
+                    toggleParty();
+                }
+            });
+        }
+    }
 })();
