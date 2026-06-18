@@ -254,6 +254,45 @@ body.ov-open .card {
     pointer-events: none;
 }
 
+/* === Language toggle (EN/ID) on landing card === */
+.lang-toggle {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    display: inline-flex;
+    align-items: center;
+    padding: 3px;
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    z-index: 3;
+}
+.lang-toggle button {
+    padding: 4px 10px;
+    background: transparent;
+    border: 0;
+    border-radius: 999px;
+    color: var(--muted);
+    cursor: pointer;
+    font: inherit;
+    font-weight: 600;
+    transition: color var(--t-fast) var(--ease), background-color var(--t-fast) var(--ease);
+}
+.lang-toggle button:hover { color: var(--fg); }
+.lang-toggle button[aria-pressed="true"] {
+    color: var(--bg);
+    background: var(--fg);
+}
+.lang-toggle__sep {
+    width: 1px;
+    height: 12px;
+    background: var(--line);
+}
+[data-i18n] { transition: opacity var(--t-fast) var(--ease); }
+
 /* === Card dissolve on overlay open / reform on close === */
 .card.is-dissolving { animation: card-dissolve 900ms var(--ease) forwards; }
 .card.is-dissolving > * {

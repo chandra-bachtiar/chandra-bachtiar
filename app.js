@@ -672,4 +672,65 @@
             });
         }
     }
+
+    /* === EN/ID language toggle on landing card ============= */
+    const translations = {
+        en: {
+            role: 'Senior Fullstack Developer',
+            org: 'At Coding Collective Indonesia',
+            location: 'Yogyakarta - Indonesia',
+            linkedin: 'LinkedIn',
+            github: 'GitHub',
+            email: 'Email',
+            resume: 'Resume',
+            more: 'More about me',
+        },
+        id: {
+            role: 'Pengembang Fullstack Senior',
+            org: 'Di Coding Collective Indonesia',
+            location: 'Yogyakarta - Indonesia',
+            linkedin: 'LinkedIn',
+            github: 'GitHub',
+            email: 'Email',
+            resume: 'CV',
+            more: 'Tentang saya',
+        },
+    };
+    const swapI18nText = (el, txt) => {
+        if (prefersReduce || el.textContent === txt) { el.textContent = txt; return; }
+        el.style.opacity = '0';
+        setTimeout(() => { el.textContent = txt; el.style.opacity = '1'; }, 140);
+    };
+    const i18n = {
+        current: 'en',
+        init() {
+            const stored = localStorage.getItem('lang');
+            if (stored && translations[stored]) this.current = stored;
+            document.documentElement.lang = this.current;
+            this.bindToggles();
+            this.apply();
+        },
+        set(lang) {
+            if (!translations[lang] || lang === this.current) return;
+            this.current = lang;
+            localStorage.setItem('lang', lang);
+            document.documentElement.lang = lang;
+            this.apply();
+            document.querySelectorAll('[data-lang]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.lang === lang)));
+        },
+        apply() {
+            const t = translations[this.current];
+            document.querySelectorAll('[data-i18n]').forEach((el) => {
+                const key = el.dataset.i18n;
+                if (t[key]) swapI18nText(el, t[key]);
+            });
+        },
+        bindToggles() {
+            document.querySelectorAll('[data-lang]').forEach((b) => {
+                b.setAttribute('aria-pressed', String(b.dataset.lang === this.current));
+                b.addEventListener('click', () => i18n.set(b.dataset.lang));
+            });
+        },
+    };
+    if (document.querySelector('[data-i18n]')) i18n.init();
 })();
