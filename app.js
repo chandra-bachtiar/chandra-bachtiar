@@ -191,6 +191,7 @@
         setPortalOrigin();
         overlay.classList.add('is-open');
         overlay.setAttribute('aria-hidden', 'false');
+        overlay.removeAttribute('inert');
         moreBtn?.setAttribute('aria-expanded', 'true');
         document.body.classList.add('ov-open');
         if (resetOverlayTimer) {
@@ -210,6 +211,7 @@
         setPortalOrigin();
         overlay.classList.remove('is-open');
         overlay.setAttribute('aria-hidden', 'true');
+        overlay.setAttribute('inert', '');
         moreBtn?.setAttribute('aria-expanded', 'false');
         document.body.classList.remove('ov-open');
         // Reset after the curtain finishes closing, so content does not vanish mid-animation.
@@ -226,7 +228,7 @@
             firstSectionRevealed = false;
             resetOverlayTimer = null;
         }, 1100);
-        setTimeout(() => lastFocus?.focus?.({ preventScroll: true }), 50);
+        setTimeout(() => (moreBtn || lastFocus)?.focus?.({ preventScroll: true }), 50);
     };
 
     moreBtn?.addEventListener('click', openOverlay);
@@ -415,38 +417,4 @@
     // fights the browser's scroll-snap and feels laggy on trackpads.
     // CSS `scroll-behavior: smooth` + proximity snap handle smoothness.
 
-    // === Name: text scramble on hover ============================
-    const nameEl = document.querySelector('.name');
-    if (nameEl && !isTouch && !prefersReduce) {
-        const original = nameEl.textContent;
-        const chars = '!<>-_\\/[]{}—=+*^?#________';
-        let raf = null;
-        let frame = 0;
-        const total = 16;
-        const step = () => {
-            const out = original.split('').map((ch, i) => {
-                if (ch === ' ') return ' ';
-                if (i < frame / 2) return original[i];
-                return chars[Math.floor(Math.random() * chars.length)];
-            }).join('');
-            nameEl.textContent = out;
-            frame += 1;
-            if (frame <= total) {
-                raf = requestAnimationFrame(step);
-            } else {
-                nameEl.textContent = original;
-                raf = null;
-            }
-        };
-        nameEl.addEventListener('pointerenter', () => {
-            if (raf) cancelAnimationFrame(raf);
-            frame = 0;
-            raf = requestAnimationFrame(step);
-        });
-        nameEl.addEventListener('pointerleave', () => {
-            if (raf) cancelAnimationFrame(raf);
-            nameEl.textContent = original;
-            raf = null;
-        });
-    }
 })();
